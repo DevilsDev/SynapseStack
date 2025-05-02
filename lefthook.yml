@@ -1,0 +1,20 @@
+# ----------------------------------------------
+# File: lefthook.yml
+# Description: Git hook definitions for linting and commit message validation
+# Version: 0.1.0
+# Author: Ali Kahwaji
+# ----------------------------------------------
+
+hooks:
+  pre-commit:
+    parallel: true
+    commands:
+      lint:
+        run: npm run lint
+      format:
+        run: npx prettier --check .
+
+  commit-msg:
+    scripts:
+      commitlint:
+        runner: npx commitlint --edit $1

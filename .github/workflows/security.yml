@@ -1,0 +1,28 @@
+# ----------------------------------------------
+# File: .github/workflows/security.yml
+# Description: Runs scheduled and PR-based Snyk vulnerability scans.
+# Version: 0.1.0
+# Author: Ali Kahwaji
+# ----------------------------------------------
+
+    name: Security Scan
+
+    on:
+      schedule:
+        - cron: '0 0 * * 1'
+      pull_request:
+        branches: [main]
+        paths: ['**/package.json']
+    
+    jobs:
+      security:
+        runs-on: ubuntu-latest
+        steps:
+          - uses: actions/checkout@v3
+    
+          - name: Install dependencies
+            run: npm ci
+    
+          - name: Run Snyk to check for vulnerabilities
+            run: npx snyk test || true
+    
