@@ -21,7 +21,14 @@
     "@arkweid/lefthook": "^0.7.7",
     "@commitlint/cli": "^19.8.0",
     "@commitlint/config-conventional": "^19.8.0",
+    "@types/node": "^22.15.3",
     "husky": "^9.1.7",
-    "lint-staged": "^15.5.1"
+    "lint-staged": "^15.5.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "gh": "^2.8.9",
+    "openai": "^4.96.2"
   }
 }

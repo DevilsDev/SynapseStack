@@ -1,0 +1,33 @@
+# ----------------------------------------------
+# File: .github/workflows/next-task.yml
+# Description: Runs AI Strategist script on each push to develop and logs next-step suggestion.
+# Version: 0.1.0
+# Author: Ali Kahwaji
+# ----------------------------------------------
+
+    name: Next Task Strategist
+
+    on:
+      push:
+        branches: [develop]
+    
+    jobs:
+      ai-strategist:
+        runs-on: ubuntu-latest
+        steps:
+          - name: Checkout repo
+            uses: actions/checkout@v3
+    
+          - name: Set up Node.js
+            uses: actions/setup-node@v3
+            with:
+              node-version: '20'
+    
+          - name: Install dependencies
+            run: npm ci
+    
+          - name: Run AI Strategist
+            env:
+              OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+            run: npx ts-node scripts/ai-strategist.ts
+    
