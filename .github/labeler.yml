@@ -5,23 +5,23 @@
 # Author: Ali Kahwaji
 # ----------------------------------------------
 
-    feature:
-        - src/**/*
-        - scripts/**/*
-      
-      infra:
-        - .github/**/*
-        - package.json
-        - tsconfig.json
-        - jest.config.js
-      
-      docs:
-        - docs/**/*
-        - README.md
-      
-      test:
-        - __tests__/**/*
-      
-      ci:
-        - .github/workflows/**/*
+ feature:
+  - src/**
+  - scripts/**
+
+infra:
+  - .github/**
+  - package.json
+  - tsconfig.json
+  - jest.config.js
+
+docs:
+  - docs/**
+  - README.md
+
+test:
+  - __tests__/**
+
+ci:
+  - .github/workflows/**
       
