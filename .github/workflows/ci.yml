@@ -45,11 +45,12 @@
         - name: Enforce Branch Naming Convention
           if: github.ref != 'refs/heads/main'
           run: |
-            BRANCH_NAME="${GITHUB_REF##*/}"
+            BRANCH_NAME="${GITHUB_HEAD_REF:-${GITHUB_REF##*/}}"
             if ! [[ "$BRANCH_NAME" =~ ^(phase|feature|bugfix|release|develop)/ ]]; then
               echo "Invalid branch name: $BRANCH_NAME"
               exit 1
             fi
+        
   
         - name: Commit Message Lint
           run: |

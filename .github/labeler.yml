@@ -6,21 +6,28 @@
 # ----------------------------------------------
 
 feature:
-  - src/**
-  - scripts/**
+feature:
+  paths:
+    - src/**
+    - scripts/**
 
 infra:
-  - .github/**
-  - package.json
-  - tsconfig.json
-  - jest.config.js
+  paths:
+    - .github/**
+    - package.json
+    - tsconfig.json
+    - jest.config.cjs
 
 docs:
-  - docs/**
-  - README.md
+  paths:
+    - docs/**
+    - README.md
 
 test:
-  - __tests__/**
+  paths:
+    - __tests__/**
 
 ci:
-  - .github/workflows/**
+  paths:
+    - .github/workflows/**
+
