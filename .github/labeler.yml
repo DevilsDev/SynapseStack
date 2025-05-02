@@ -1,0 +1,27 @@
+# ----------------------------------------------
+# File: .github/labeler.yml
+# Description: Labeler config to classify PRs based on file changes.
+# Version: 0.1.0
+# Author: Ali Kahwaji
+# ----------------------------------------------
+
+    feature:
+        - src/**/*
+        - scripts/**/*
+      
+      infra:
+        - .github/**/*
+        - package.json
+        - tsconfig.json
+        - jest.config.js
+      
+      docs:
+        - docs/**/*
+        - README.md
+      
+      test:
+        - __tests__/**/*
+      
+      ci:
+        - .github/workflows/**/*
+      

@@ -1,31 +1,41 @@
 # ----------------------------------------------
 # File: .github/workflows/release.yml
-# Description: Automates semantic release, changelog generation, and npm publish.
-# Version: 0.1.0
+# Description: Semantic release with dry-run support for release branches.
+# Version: 0.2.0
 # Author: Ali Kahwaji
 # ----------------------------------------------
 
-    name: Release
+  name: Release
 
-    on:
-      push:
-        branches: [main]
-    
-    jobs:
-      release:
-        runs-on: ubuntu-latest
-        steps:
-          - uses: actions/checkout@v3
-    
-          - name: Set up Node.js
-            uses: actions/setup-node@v3
-            with:
-              node-version: '20'
-    
-          - name: Install dependencies
-            run: npm ci
-    
-          - name: Release
-            env:
-              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-            run: npx semantic-release
+  on:
+    push:
+      branches:
+        - main
+        - release/**
+  
+  jobs:
+    release:
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v3
+  
+        - name: Set up Node.js
+          uses: actions/setup-node@v3
+          with:
+            node-version: '20'
+  
+        - name: Install dependencies
+          run: npm ci
+  
+        - name: Semantic Release (with dry-run for release/*)
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          run: |
+            if [[ "$GITHUB_REF" == refs/heads/release/* ]]; then
+              echo "🔍 Dry run on release branch"
+              npx semantic-release --dry-run
+            else
+              echo "Releasing from main"
+              npx semantic-release
+            fi
+  
