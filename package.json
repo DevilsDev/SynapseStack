@@ -4,16 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-  "prepare": "lefthook install",
-  "lint": "eslint 'src/**/*.{ts,tsx}'",
-  "format": "prettier --write 'src/**/*.{ts,tsx}'",
-  "test": "jest",
-  "test:unit": "jest --config jest.config.js --testPathPattern=__tests__/unit",
-  "test:integration": "jest --config jest.config.js --testPathPattern=__tests__/integration",
-  "test:contract": "jest --config jest.config.js --testPathPattern=__tests__/contract",
-  "test:coverage": "jest --coverage",
-  "release": "semantic-release"
-},
+    "prepare": "lefthook install",
+    "lint": "eslint 'src/**/*.{ts,tsx}'",
+    "format": "prettier --write 'src/**/*.{ts,tsx}'",
+    "test": "jest",
+    "test:unit": "jest --config jest.config.js --testPathPattern=__tests__/unit",
+    "test:integration": "jest --config jest.config.js --testPathPattern=__tests__/integration",
+    "test:contract": "jest --config jest.config.js --testPathPattern=__tests__/contract",
+    "test:coverage": "jest --coverage",
+    "release": "semantic-release"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/DevilsDev/SynapseStack.git"
@@ -29,6 +29,7 @@
     "@arkweid/lefthook": "^0.7.7",
     "@commitlint/cli": "^19.8.0",
     "@commitlint/config-conventional": "^19.8.0",
+    "@eslint/js": "^9.25.1",
     "@types/jest": "^29.5.14",
     "@types/node": "^22.15.3",
     "eslint": "^9.25.1",
@@ -38,7 +39,8 @@
     "semantic-release": "^24.2.3",
     "ts-jest": "^29.3.2",
     "ts-node": "^10.9.2",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.31.1"
   },
   "dependencies": {
     "openai": "^4.96.2"

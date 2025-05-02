@@ -1,0 +1,26 @@
+# ----------------------------------------------
+# File: .github/CODEOWNERS
+# Description: Defines ownership for CI, infrastructure, and module boundaries.
+# Version: 0.1.0
+# Author: Ali Kahwaji
+# ----------------------------------------------
+
+# CI/CD pipeline ownership
+.github/workflows/ @DevilsDev
+.github/labeler.yml @DevilsDev
+
+# Core test and linting
+jest.config.js @DevilsDev
+package.json @DevilsDev
+
+# Internal roadmap and governance
+/docs/internal/ @DevilsDev
+
+# Core source modules
+/src/core/ @DevilsDev
+/src/adapters/ @DevilsDev
+/src/cli/ @DevilsDev
+
+# AI-integrated scripts
+/scripts/ai-strategist.ts @DevilsDev
+/scripts/suggest-commit-message.ts @DevilsDev
