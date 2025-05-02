@@ -5,8 +5,9 @@
  * Author: Ali Kahwaji
  */
 export interface ILLMClient {
-    generate(prompt: string, context?: string[]): Promise<string>;
-    stream(prompt: string, context?: string[], onToken: (token: string) => void): Promise<void>;
-    getModelName(): string;
-  }
+  generate(_prompt: string, _context?: string[]): Promise<string>;
+  stream(_prompt: string, _context?: string[], _onToken: (_token: string) => void): Promise<void>;
+  getModelName(): string;
+}
+
   
