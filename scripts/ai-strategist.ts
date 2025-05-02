@@ -1,14 +1,14 @@
 /**
  * File: scripts/ai-strategist.ts
  * Description: Generates a next-step development prompt using OpenAI based on the last commit.
- * Version: 0.1.0
+ * Version: 0.2.0
  * Author: Ali Kahwaji
  */
 
 import { execSync } from 'child_process';
 import fs from 'fs';
 import path from 'path';
-import { Configuration, OpenAIApi } from 'openai';
+import OpenAI from 'openai';
 
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
 
@@ -17,8 +17,7 @@ if (!OPENAI_API_KEY) {
   process.exit(1);
 }
 
-const configuration = new Configuration({ apiKey: OPENAI_API_KEY });
-const openai = new OpenAIApi(configuration);
+const openai = new OpenAI({ apiKey: OPENAI_API_KEY });
 
 function getLastCommitSummary(): string {
   return execSync('git log -1 --pretty=format:"%s%n%n%b"')
@@ -28,6 +27,7 @@ function getLastCommitSummary(): string {
 
 async function generateSuggestion(commitMessage: string): Promise<string> {
   const prompt = `You are an AI roadmap assistant for the SynapseStack project.
+
 Given the last Git commit:
 
 """
@@ -36,13 +36,13 @@ ${commitMessage}
 
 Suggest the next most logical development task according to the roadmap.`;
 
-  const response = await openai.createChatCompletion({
+  const response = await openai.chat.completions.create({
     model: 'gpt-4',
     messages: [{ role: 'user', content: prompt }],
     temperature: 0.3,
   });
 
-  return response.data.choices[0].message?.content?.trim() || '[No response]';
+  return response.choices[0].message?.content?.trim() || '[No response]';
 }
 
 async function main() {

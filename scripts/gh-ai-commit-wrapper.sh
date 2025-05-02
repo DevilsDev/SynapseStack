@@ -1,16 +1,20 @@
 #!/bin/bash
 
 # ----------------------------------------------
-# File: scripts/git-ai-commit.sh
-# Description: Prompts OpenAI-based commit message and optionally uses it or edits it.
-# Version: 0.1.2
+# File: scripts/gh-ai-commit-wrapper.sh
+# Description: Wrapper to invoke AI commit suggestion using tsx.
+# Version: 0.3.0
 # Author: Ali Kahwaji
 # ----------------------------------------------
 
-#!/bin/bash
-
 echo "Generating commit message suggestion..."
-SUGGESTION=$(npx ts-node scripts/suggest-commit-message.ts)
+
+SUGGESTION=$(npx tsx scripts/suggest-commit-message.ts)
+
+if [[ -z "$SUGGESTION" ]]; then
+  echo "No suggestion returned. Aborting."
+  exit 1
+fi
 
 echo
 echo "$SUGGESTION"
@@ -25,4 +29,3 @@ elif [[ "$choice" == "e" || "$choice" == "E" ]]; then
 else
   echo "Cancelled. You may run git commit manually."
 fi
-

@@ -1,38 +1,62 @@
 # ----------------------------------------------
 # File: .github/workflows/ci.yml
-# Description: Runs linting, type-checking, and unit tests on all PRs and pushes.
-# Version: 0.1.0
+# Description: Comprehensive CI pipeline with lint, test, coverage, and policy enforcement.
+# Version: 0.2.0
 # Author: Ali Kahwaji
 # ----------------------------------------------
 
-    name: Continuous Integration
+  name: Continuous Integration
 
-    on:
-      push:
-        branches: [main, develop]
-      pull_request:
-        branches: [main, develop]
-    
-    jobs:
-      build-and-test:
-        runs-on: ubuntu-latest
-        steps:
-          - uses: actions/checkout@v3
-    
-          - name: Set up Node.js
-            uses: actions/setup-node@v3
-            with:
-              node-version: '20'
-    
-          - name: Install dependencies
-            run: npm ci
-    
-          - name: Lint
-            run: npm run lint
-    
-          - name: Type check
-            run: tsc --noEmit
-    
-          - name: Run tests
-            run: npm test
-    
+  on:
+    push:
+      branches: [main, develop]
+    pull_request:
+      branches: [main, develop]
+  
+  jobs:
+    build-and-test:
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v3
+  
+        - name: Set up Node.js
+          uses: actions/setup-node@v3
+          with:
+            node-version: '20'
+  
+        - name: Install dependencies
+          run: npm ci
+  
+        - name: Run ESLint
+          run: npm run lint
+  
+        - name: Run Prettier Check
+          run: npm run format -- --check
+  
+        - name: Type Check
+          run: tsc --noEmit
+  
+        - name: Run Tests
+          run: npm run test
+  
+        - name: Run Coverage
+          run: npm run test:coverage
+  
+        - name: Enforce Branch Naming Convention
+          if: github.ref != 'refs/heads/main'
+          run: |
+            BRANCH_NAME="${GITHUB_HEAD_REF:-${GITHUB_REF##*/}}"
+              if ! [[ "$BRANCH_NAME" =~ ^(phase|feature|bugfix|release|develop|test)/ ]]; then
+              echo "Invalid branch name: $BRANCH_NAME"
+              exit 1
+            fi
+        
+  
+        - name: Commit Message Lint
+          run: |
+            COMMIT_MSG=$(git log -1 --pretty=%B)
+            echo "$COMMIT_MSG" | npx commitlint
+  
+        - name: Lint-Staged Check
+          run: npx lint-staged
+  
