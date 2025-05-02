@@ -1,19 +1,19 @@
 # ----------------------------------------------
 # File: .github/workflows/pr-label.yml
 # Description: Auto-labels pull requests based on file changes using GitHub's labeler.
-# Version: 0.1.0
+# Version: 0.1.1
 # Author: Ali Kahwaji
 # ----------------------------------------------
 
-    name: PR Labeler
+  name: PR Labeler
 
-    on:
-      pull_request:
-        types: [opened, edited, synchronize]
-    
-    jobs:
-      label:
-        runs-on: ubuntu-latest
-        steps:
-          - uses: actions/labeler@v5
-    
+  on:
+    pull_request:
+      types: [opened, edited, synchronize]
+  
+  jobs:
+    label:
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/labeler@v5
+  
