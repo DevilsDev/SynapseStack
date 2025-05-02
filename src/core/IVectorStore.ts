@@ -5,8 +5,9 @@
  * Author: Ali Kahwaji
  */
 export interface IVectorStore {
-    addDocuments(documents: { id: string; embedding: number[] }[]): Promise<void>;
-    similaritySearch(queryEmbedding: number[], topK: number): Promise<{ id: string; score: number }[]>;
-    delete(ids: string[]): Promise<void>;
-  }
+  addDocuments(_documents: { id: string; embedding: number[] }[]): Promise<void>;
+  similaritySearch(_queryEmbedding: number[], _topK: number): Promise<{ id: string; score: number }[]>;
+  delete(_ids: string[]): Promise<void>;
+}
+
   

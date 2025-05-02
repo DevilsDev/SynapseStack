@@ -5,7 +5,8 @@
  * Author: Ali Kahwaji
  */
 export interface IEmbeddingProvider {
-    embed(texts: string[]): Promise<number[][]>;
-    getModelName(): string;
-  }
+  embed(_texts: string[]): Promise<number[][]>;
+  getModelName(): string;
+}
+
   
