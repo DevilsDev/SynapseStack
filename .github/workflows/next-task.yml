@@ -39,12 +39,15 @@
             ls -al .env || echo ".env not committed (expected for CI)."
   
         - name: Validate environment variables
+          env:
+              OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           run: npx tsx scripts/env-validator.ts
-  
+          
         - name: Run AI Strategist
           env:
-            OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+              OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           run: |
-            echo "Running strategist with OPENAI_API_KEY length: ${#OPENAI_API_KEY}"
-            npx tsx scripts/ai-strategist.ts
+              echo "Running strategist with OPENAI_API_KEY length: ${#OPENAI_API_KEY}"
+              npx tsx scripts/ai-strategist.ts
+          
   
