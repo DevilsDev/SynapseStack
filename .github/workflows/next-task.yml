@@ -1,33 +1,50 @@
 # ----------------------------------------------
 # File: .github/workflows/next-task.yml
 # Description: Runs AI Strategist script on each push to develop and logs next-step suggestion.
-# Version: 0.1.0
+# Version: 0.3.0
 # Author: Ali Kahwaji
 # ----------------------------------------------
 
-    name: Next Task Strategist
+  name: Next Task Strategist
 
-    on:
-      push:
-        branches: [develop]
-    
-    jobs:
-      ai-strategist:
-        runs-on: ubuntu-latest
-        steps:
-          - name: Checkout repo
-            uses: actions/checkout@v3
-    
-          - name: Set up Node.js
-            uses: actions/setup-node@v3
-            with:
-              node-version: '20'
-    
-          - name: Install dependencies
-            run: npm ci
-    
-          - name: Run AI Strategist
-            env:
-              OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-            run: npx tsx scripts/ai-strategist.ts
-    
+  on:
+    push:
+      branches: [develop]
+  
+  jobs:
+    ai-strategist:
+      name: Suggest Next Task with OpenAI
+      runs-on: ubuntu-latest
+  
+      steps:
+        - name: Checkout repository
+          uses: actions/checkout@v3
+  
+        - name: Print working directory and files
+          run: |
+            echo "Current working directory: $PWD"
+            ls -R
+  
+        - name: Set up Node.js
+          uses: actions/setup-node@v3
+          with:
+            node-version: '20'
+  
+        - name: Install dependencies
+          run: npm ci
+  
+        - name: Show .env key presence (debug)
+          run: |
+            echo "ENV file present:"
+            ls -al .env || echo ".env not committed (expected for CI)."
+  
+        - name: Validate environment variables
+          run: npx tsx scripts/env-validator.ts
+  
+        - name: Run AI Strategist
+          env:
+            OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          run: |
+            echo "Running strategist with OPENAI_API_KEY length: ${#OPENAI_API_KEY}"
+            npx tsx scripts/ai-strategist.ts
+  
