@@ -2,10 +2,13 @@
 
 # ----------------------------------------------
 # File: scripts/gh-ai-commit-wrapper.sh
-# Description: Wrapper to invoke AI commit suggestion using tsx.
+# Description: Wrapper to invoke AI commit suggestion with tsx and .env support.
 # Version: 0.3.0
 # Author: Ali Kahwaji
 # ----------------------------------------------
+
+# Load environment variables from .env
+export $(grep -v '^#' .env | xargs)
 
 echo "Generating commit message suggestion..."
 
