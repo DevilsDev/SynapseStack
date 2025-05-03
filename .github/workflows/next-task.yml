@@ -29,5 +29,5 @@
           - name: Run AI Strategist
             env:
               OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-            run: npx ts-node scripts/ai-strategist.ts
+            run: npx tsx scripts/ai-strategist.ts
     
