@@ -11,7 +11,7 @@ const requiredVars = [
   'OPENAI_API_KEY'
 ];
 
-let missing: string[] = [];
+const missing: string[] = [];
 
 for (const key of requiredVars) {
   if (!process.env[key]) {
