@@ -1,11 +1,11 @@
 /**
  * File: src/adapters/openai/OpenAIEmbeddingProvider.ts
  * Description: Adapter for generating text embeddings using OpenAI's embedding API.
- * Version: 0.1.0
+ * Version: 0.1.1
  * Author: Ali Kahwaji
  */
 
-import OpenAI from 'openai';
+import { OpenAI } from 'openai';
 import { IEmbeddingProvider } from '../../core/IEmbeddingProvider';
 
 export class OpenAIEmbeddingProvider implements IEmbeddingProvider {
