@@ -1,19 +1,35 @@
-// File: eslint.config.js
-// Description: Flat config for ESLint v9+ with TypeScript support
-// Version: 0.1.0
-// Author: Ali Kahwaji
+/**
+ * File: eslint.config.js
+ * Description: ESLint Flat Config with Clean Code and architectural rules for SynapseStack.
+ * Version: 0.2.0
+ * Author: Ali Kahwaji
+ */
 
 import js from '@eslint/js';
 import tseslint from 'typescript-eslint';
+import unicorn from 'eslint-plugin-unicorn';
+import sonarjs from 'eslint-plugin-sonarjs';
 
 export default [
   js.configs.recommended,
   ...tseslint.configs.recommended,
   {
-    files: ['**/*.ts'],
+    plugins: {
+      unicorn,
+      sonarjs,
+    },
     rules: {
-      'no-console': 'warn',
-      'no-unused-vars': ['error', { argsIgnorePattern: '^_' }]
+      'unicorn/no-for-loop': 'warn',
+      'unicorn/prefer-string-slice': 'warn',
+      'sonarjs/no-duplicate-string': 'warn',
+      'sonarjs/cognitive-complexity': ['warn', 15]
+    }
+  },
+  {
+    files: ['src/adapters/**/*.ts'],
+    rules: {
+      'unicorn/prevent-abbreviations': 'error',
+      'unicorn/filename-case': 'off'
     }
   }
 ];
