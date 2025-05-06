@@ -1,7 +1,7 @@
 # ----------------------------------------------
 # File: .github/workflows/ci.yml
 # Description: Comprehensive CI pipeline with lint, test, coverage, and policy enforcement.
-# Version: 0.2.2
+# Version: 0.2.3
 # Author: Ali Kahwaji
 # ----------------------------------------------
 
@@ -53,7 +53,12 @@
         - name: Commit Message Lint
           run: |
             git fetch --depth=2 origin ${{ github.head_ref || github.ref_name }}
-            npx commitlint --from=HEAD~1 --to=HEAD --verbose
+            COMMITS=$(git rev-list --count HEAD)
+            if [ "$COMMITS" -ge 2 ]; then
+              npx commitlint --from=HEAD~1 --to=HEAD --verbose
+            else
+              echo "Not enough commit history to run commitlint safely."
+            fi
   
         - name: Lint-Staged Check
           run: npx lint-staged
