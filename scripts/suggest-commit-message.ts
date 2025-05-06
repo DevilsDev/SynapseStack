@@ -1,10 +1,11 @@
 /**
  * File: scripts/suggest-commit-message.ts
  * Description: Suggests a conventional commit message using OpenAI based on staged git diff.
- * Version: 0.1.1
+ * Version: 0.3.0
  * Author: Ali Kahwaji
  */
 
+import 'dotenv/config';
 import { execSync } from 'child_process';
 import OpenAI from 'openai';
 
@@ -15,9 +16,7 @@ if (!OPENAI_API_KEY) {
   process.exit(1);
 }
 
-const openai = new OpenAI({
-  apiKey: OPENAI_API_KEY,
-});
+const openai = new OpenAI({ apiKey: OPENAI_API_KEY });
 
 function getStagedDiff(): string {
   return execSync('git diff --cached --stat').toString().trim();
@@ -40,7 +39,12 @@ Generate a commit message that follows the conventional commit format.`;
     temperature: 0.3,
   });
 
-  return response.choices[0].message.content?.trim() || '[No suggestion]';
+  const raw = response.choices[0].message?.content?.trim() || '[No suggestion]';
+
+  // Force fallback prefix if AI response is malformed or not commitlint compliant
+  const formatted = /^\w+\(.*\):/.test(raw) ? raw : `chore(ai): ${raw}`;
+
+  return formatted;
 }
 
 async function main() {
