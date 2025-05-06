@@ -1,15 +1,15 @@
 /**
  * File: src/adapters/vectorstore/chroma/ChromaVectorStore.ts
  * Description: Stub adapter for integrating Chroma DB.
- * Version: 0.1.0
+ * Version: 0.1.1
  * Author: Ali Kahwaji
  */
 
 import { IVectorStore } from '../../../core/IVectorStore';
 
 export class ChromaVectorStore implements IVectorStore {
-  constructor(private endpoint = 'http://localhost:8000') {
-    // Future: connect to Chroma REST API or SDK
+  constructor(private _endpoint = 'http://localhost:8000') {
+    // no-op for now
   }
 
   getName(): string {
@@ -17,18 +17,18 @@ export class ChromaVectorStore implements IVectorStore {
   }
 
   async addDocuments(_documents: { id: string; embedding: number[] }[]): Promise<void> {
-    // TODO: implement upsert using Chroma API
+    // no-op for now
   }
 
   async similaritySearch(
     _queryEmbedding: number[],
     _topK: number
   ): Promise<{ id: string; score: number }[]> {
-    // TODO: implement similarity search using Chroma API
+    // no-op for now
     return [];
   }
 
   async delete(_ids: string[]): Promise<void> {
-    // TODO: implement delete using Chroma API
+    // no-op for now
   }
 }
