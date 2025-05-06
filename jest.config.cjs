@@ -9,6 +9,7 @@ module.exports = {
   preset: 'ts-jest/presets/default-esm',
   testEnvironment: 'node',
   extensionsToTreatAsEsm: ['.ts'],
+  moduleDirectories: ['node_modules', 'src'],
   transform: {
     '^.+\\.ts$': ['ts-jest', { useESM: true }]
   },

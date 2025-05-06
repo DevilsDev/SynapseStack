@@ -6,7 +6,11 @@
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "strict": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "baseUrl": "./src",
+    "paths": {
+      "*": ["*"]
+    }
   },
   "include": ["scripts/**/*.ts", "src/**/*"]
 }

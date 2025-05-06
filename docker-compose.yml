@@ -1,0 +1,28 @@
+# ----------------------------------------------
+# File: docker-compose.yml
+# Description: Local services for vector store integration testing
+# Version: 0.1.0
+# Author: Ali Kahwaji
+# ----------------------------------------------
+
+version: '3.8'
+
+services:
+  chroma:
+    image: chromadb/chroma
+    container_name: chroma
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data/chroma:/chroma/data
+    environment:
+      - IS_PERSISTENT=TRUE
+
+  redis:
+    image: redis:7-alpine
+    container_name: redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./data/redis:/data
+    command: ["redis-server", "--save", "60", "1"]
