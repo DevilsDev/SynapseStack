@@ -1,7 +1,7 @@
 # ----------------------------------------------
 # File: .github/workflows/ci.yml
 # Description: Comprehensive CI pipeline with lint, test, coverage, and policy enforcement.
-# Version: 0.2.0
+# Version: 0.2.1
 # Author: Ali Kahwaji
 # ----------------------------------------------
 
@@ -49,13 +49,10 @@
               echo "Invalid branch name: $BRANCH_NAME"
               exit 1
             fi
-        
-        
   
         - name: Commit Message Lint
           run: |
-            COMMIT_MSG=$(git log -1 --pretty=%B)
-            echo "$COMMIT_MSG" | npx commitlint
+            npx commitlint --from=HEAD~1 --to=HEAD --verbose
   
         - name: Lint-Staged Check
           run: npx lint-staged
