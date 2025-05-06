@@ -13,17 +13,23 @@ This document tracks the progress of each roadmap phase against implementation, 
 |-------|-------|--------|------|
 | 0 | [Discovery & Design](#phase-0-discovery--design) | ✅ Completed | Interfaces, ADRs, TypeScript setup |
 | 1 | [Scaffolding & Interfaces](#phase-1-scaffolding--interfaces) | ✅ Completed | CI/CD, commit hooks, linting, structure |
-| 2 | [Embedding Adapters](#phase-2-embedding-adapters) | 🔜 Next | OpenAI, Cohere, HuggingFace embeddings |
-| 3 | [Vector Store Integrations](#phase-3-vector-store-integrations) | ⏳ Pending | Pinecone, Chroma, Redis, Weaviate connectors |
-| 4 | [Core Pipeline Implementation](#phase-4-core-pipeline-implementation) | ⏳ Pending | `createRagPipeline`, `ContextManager` |
-| 5 | [LLM Client Abstraction](#phase-5-llm-client-abstraction) | ⏳ Pending | OpenAI, Anthropic, injectable providers |
-| 6 | [Developer Experience Enhancements](#phase-6-developer-experience-enhancements) | ⏳ Pending | CLI, DSL, visualizer |
-| 7 | [Observability & Performance](#phase-7-observability--performance) | ⏳ Pending | Tracing, metrics, benchmarks |
-| 8 | [Security & Dependency Hygiene](#phase-8-security--dependency-hygiene) | ⏳ Pending | Snyk, OWASP, Renovate, secret scanning |
-| 9 | [Documentation & Governance](#phase-9-documentation--governance) | ⏳ Pending | Docusaurus, CONTRIBUTING, versioning |
-| 10 | [Dockerization & Deployment](#phase-10-dockerization--deployment) | ⏳ Pending | Dockerfile, multi-stage builds, Compose |
-| 11 | [Publish & Launch](#phase-11-publish--launch) | ⏳ Pending | `v0.1.0` release via semantic-release |
+| 2 | [Embedding Adapters](#phase-2-embedding-adapters) | ✅ Completed | OpenAI, Cohere, HuggingFace embeddings |
+| 3 | [Vector Store Integrations](#phase-3-vector-store-integrations) | 🔜 Next | Pinecone, Chroma, Redis, Weaviate connectors |
+| 4 | [Core Pipeline Implementation](#phase-4-core-pipeline-implementation) | ⏳ Planned | createRagPipeline, ContextManager |
+| 5 | [LLM Client Abstraction](#phase-5-llm-client-abstraction) | ⏳ Planned | OpenAI, Anthropic, injectable providers |
+| 6 | [Developer Experience Enhancements](#phase-6-developer-experience-enhancements) | ⏳ Planned | CLI, DSL, visualizer |
+| 7 | [Observability & Performance](#phase-7-observability--performance) | ⏳ Planned | Tracing, metrics, benchmarks |
+| 8 | [Security & Dependency Hygiene](#phase-8-security--dependency-hygiene) | ⏳ Planned | Snyk, OWASP, Renovate, secret scanning |
+| 9 | [Documentation & Governance](#phase-9-documentation--governance) | ⏳ Planned | Docusaurus, CONTRIBUTING, versioning |
+| 10 | [Dockerization & Deployment](#phase-10-dockerization--deployment) | ⏳ Planned | Dockerfile, multi-stage builds, Compose |
+| 11 | [Publish & Launch](#phase-11-publish--launch) | ⏳ Planned | v0.1.0 release via semantic-release |
 | 12 | [AI-Powered Prompt Generator (Internal)](#phase-12-ai-powered-prompt-generator-internal) | ✅ Completed | Strategist + commit assistant + logging |
+| 13 | [Multi-Embedding Strategy & Registry](#phase-13-multi-embedding-strategy--registry) | ⏳ Planned | Routing by language/domain with fallback models |
+| 14 | [Pipeline Graph Visualizer & DSL Preview](#phase-14-pipeline-graph-visualizer--dsl-preview) | ⏳ Planned | `rag-cli visualize` for graphing pipeline structure |
+| 15 | [Benchmark Harness for RAG Pipelines](#phase-15-benchmark-harness-for-rag-pipelines) | ⏳ Planned | CLI tool to benchmark latency, precision, recall |
+| 16 | [Retrieval Scoring & Confidence Modeling](#phase-16-retrieval-scoring--confidence-modeling) | ⏳ Planned | Top-K scoring, margin confidence, reranking |
+| 17 | [Explainability & Audit Trail](#phase-17-explainability--audit-trail) | ⏳ Planned | Rank trace, grounding logs, user-facing transparency |
+| 18 | [Moonshot: Feedback Loop + Privacy Vectorization](#phase-18-moonshot-feedback-loop--privacy-vectorization) | ⏳ Planned | PII-safe vectors, thumbs-up reranker, API-ready RAG |
 
 ---
 
@@ -96,8 +102,39 @@ This document tracks the progress of each roadmap phase against implementation, 
 - `.env.example` and secret-safe CI integration
 - Logged all responses in `docs/internal/SUGGESTIONS.md`
 
+### Phase 13: Multi-Embedding Strategy & Registry
+- [ ] Support multiple embedding providers with weighted configuration
+- [ ] Route embedding selection by document domain, language, or purpose
+- [ ] Enable fallback provider mechanism in case of failure or quality mismatch
+
+### Phase 14: Pipeline Graph Visualizer & DSL Preview
+- [ ] Scaffold `rag-cli visualize` command
+- [ ] Render YAML/JSON pipeline into Mermaid or Graphviz syntax
+- [ ] Generate preview as SVG/HTML for doc output or inspection
+
+### Phase 15: Benchmark Harness for RAG Pipelines
+- [ ] Create CLI tool for benchmarking pipeline latency and token usage
+- [ ] Define structured prompt suites and evaluation sets
+- [ ] Track performance metrics in snapshot JSON or CSV
+
+### Phase 16: Retrieval Scoring & Confidence Modeling
+- [ ] Add configurable scoring mechanism (margin, hybrid, vector+BM25)
+- [ ] Surface confidence scores with each retrieved document
+- [ ] Add reranking hook to improve factual reliability
+
+### Phase 17: Explainability & Audit Trail
+- [ ] Trace input-output path for each pipeline request
+- [ ] Log token alignment and source doc attribution
+- [ ] Provide opt-in audit mode for all queries
+
+### Phase 18: Moonshot: Feedback Loop + Privacy Vectorization
+- [ ] Log user feedback signals (e.g. thumbs up/down)
+- [ ] Integrate feedback-driven reranker learning path
+- [ ] Add vector sanitizer for PII-sensitive embeddings
+- [ ] Enable export as serverless pipeline or CLI task
+
 ---
 
 _This file is maintained by the CTO and engineering leads to ensure every phase is validated before merging to `main`._
 
-Last updated: `v0.1.0-pre-release`
+Last updated: `v0.1.0-pre-release` + extended roadmap
