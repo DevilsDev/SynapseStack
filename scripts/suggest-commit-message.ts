@@ -1,7 +1,7 @@
 /**
  * File: scripts/suggest-commit-message.ts
  * Description: Suggests a conventional commit message using OpenAI based on staged git diff.
- * Version: 0.3.0
+ * Version: 0.3.1
  * Author: Ali Kahwaji
  */
 
@@ -41,8 +41,11 @@ Generate a commit message that follows the conventional commit format.`;
 
   const raw = response.choices[0].message?.content?.trim() || '[No suggestion]';
 
-  // Force fallback prefix if AI response is malformed or not commitlint compliant
-  const formatted = /^\w+\(.*\):/.test(raw) ? raw : `chore(ai): ${raw}`;
+  // Strip nested commit prefixes from AI if present (e.g., feat:, fix:, etc.)
+  const cleaned = raw.replace(/^(feat|fix|chore|docs|test|refactor|style|perf|ci)(\([^)]*\))?:\s*/i, '');
+
+  // Wrap with fallback prefix
+  const formatted = `chore(ai): ${cleaned.trim()}`;
 
   return formatted;
 }
