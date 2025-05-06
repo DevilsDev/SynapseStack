@@ -1,7 +1,7 @@
 /**
  * File: eslint.config.js
  * Description: ESLint Flat Config with Clean Code and architectural rules for SynapseStack.
- * Version: 0.2.0
+ * Version: 0.2.1
  * Author: Ali Kahwaji
  */
 
@@ -22,7 +22,8 @@ export default [
       'unicorn/no-for-loop': 'warn',
       'unicorn/prefer-string-slice': 'warn',
       'sonarjs/no-duplicate-string': 'warn',
-      'sonarjs/cognitive-complexity': ['warn', 15]
+      'sonarjs/cognitive-complexity': ['warn', 15],
+      '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }]
     }
   },
   {

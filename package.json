@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "prepare": "lefthook install",
-    "lint": "eslint 'src/**/*.{ts,tsx}'",
+    "lint": "eslint src/**/*.{ts,tsx}",
     "format": "prettier --write 'src/**/*.{ts,tsx}'",
     "test:unit": "jest --config jest.config.js --testPathPattern=__tests__/unit",
     "test:integration": "jest --config jest.config.js --testPathPattern=__tests__/integration",
@@ -14,7 +14,7 @@
     "test:coverage": "jest --coverage",
     "release": "semantic-release",
     "test": "jest --config jest.config.cjs",
-    "lint:strict": "eslint src/ scripts/ --max-warnings=0"
+    "lint:strict": "eslint src/**/*.{ts,tsx} --max-warnings=0"
   },
   "repository": {
     "type": "git",
