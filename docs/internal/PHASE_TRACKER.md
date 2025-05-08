@@ -66,9 +66,12 @@ This document tracks the progress of each roadmap phase against implementation, 
 
 ### Phase 4: Core Pipeline Implementation
 
-- [ ] Implement `createRagPipeline()` orchestration function
-- [ ] Add `ContextManager` session handler
-- [ ] Add E2E tests mocking LLMs
+-  Implemented `createRagPipeline()` orchestration function under `src/engines`
+-  Created `ContextManager` to manage per-session history and context stack
+-  E2E integration test under `__tests__/integration/pipeline.e2e.test.ts` using mocks
+-  ADR 0005 documented design rationale and injection pattern
+-  CI passed with test + lint + coverage
+
 
 ### Phase 5: LLM Client Abstraction
 
