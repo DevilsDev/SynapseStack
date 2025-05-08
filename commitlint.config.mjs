@@ -5,9 +5,8 @@
  * Author: Ali Kahwaji
  */
 
-/** @type {import('@commitlint/types').UserConfig} */
-const config = {
+// commitlint.config.mjs
+export default {
   extends: ['@commitlint/config-conventional']
-};
+}
 
-export default config;
