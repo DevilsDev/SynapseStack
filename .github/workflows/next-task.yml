@@ -5,49 +5,45 @@
 # Author: Ali Kahwaji
 # ----------------------------------------------
 
-  name: Next Task Strategist
+name: Next Task Strategist
 
-  on:
-    push:
-      branches: [develop]
-  
-  jobs:
-    ai-strategist:
-      name: Suggest Next Task with OpenAI
-      runs-on: ubuntu-latest
-  
-      steps:
-        - name: Checkout repository
-          uses: actions/checkout@v3
-  
-        - name: Print working directory and files
-          run: |
-            echo "Current working directory: $PWD"
-            ls -R
-  
-        - name: Set up Node.js
-          uses: actions/setup-node@v3
-          with:
-            node-version: '20'
-  
-        - name: Install dependencies
-          run: npm ci
-  
-        - name: Show .env key presence (debug)
-          run: |
-            echo "ENV file present:"
-            ls -al .env || echo ".env not committed (expected for CI)."
-  
-        - name: Validate environment variables
-          env:
-              OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          run: npx tsx scripts/env-validator.ts
-          
-        - name: Run AI Strategist
-          env:
-              OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          run: |
-              echo "Running strategist with OPENAI_API_KEY length: ${#OPENAI_API_KEY}"
-              npx tsx scripts/ai-strategist.ts
-          
-  
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  ai-strategist:
+    name: Suggest Next Task with OpenAI
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Validate environment variables
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: npx tsx scripts/env-validator.ts
+
+      - name: Run AI Strategist
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          echo "Running strategist with commit message analysis..."
+          npx tsx scripts/ai-strategist.ts
+
+      - name: Upload updated suggestions file
+        uses: EndBug/add-and-commit@v9
+        with:
+          add: 'docs/internal/SUGGESTIONS.md'
+          message: 'docs(suggestions): update AI strategist suggestion log'
+          default_author: github_actions
