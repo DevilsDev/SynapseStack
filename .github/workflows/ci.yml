@@ -2,7 +2,7 @@
 # File: .github/workflows/ci.yml
 # Description: Comprehensive CI pipeline with lint, test, coverage, and policy enforcement.
 # Version: 0.3.1
-# Author: Ali Kahwaji
+# Author: Ali Kahwaji - CTO
 # ----------------------------------------------
 
   name: Continuous Integration
