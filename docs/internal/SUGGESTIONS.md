@@ -46,3 +46,22 @@ Roadmap
 
 **Classified As:** test
 **Phase Suggested:** Phase : 6 - Developer Experience Enhancements
+
+## Suggestion — 2025-05-08T20:04:16.749Z
+
+**Commit Summary:**
+
+Suggested Commit Message:
+
+chore(ai): add AnthropicClient and OpenAIClient with corresponding unit tests and documentation
+
+This commit introduces two new classes, AnthropicClient and OpenAIClient, in the llm adapters directory. Corresponding unit tests have been added for both classes. Additionally, the ADR documentation has been updated with the new llm abstraction strategy.
+
+**Suggested Next Task:**
+
+Next Development Task: Implement the methods and functionalities for the AnthropicClient and OpenAIClient classes.
+
+Roadmap
+
+**Classified As:** unspecified
+**Phase Suggested:** Phase : 5 - LLM Client Abstraction
