@@ -1,7 +1,7 @@
 # ----------------------------------------------
 # File: lefthook.yml
-# Description: Git hook definitions for linting and commit message validation
-# Version: 0.2.1
+# Description: Git hook definitions with commit message linting enforced pre-push.
+# Version: 0.3.0
 # Author: Ali Kahwaji
 # ----------------------------------------------
 
@@ -25,5 +25,5 @@ hooks:
         run: npm run lint:strict
       test:
         run: npm run test
-      commit-message-check:
+      commitlint:
         run: git log -1 --pretty=%B | npx commitlint

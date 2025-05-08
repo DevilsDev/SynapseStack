@@ -1,8 +1,8 @@
 # ----------------------------------------------
 # File: .github/workflows/ci.yml
-# Description: Comprehensive CI pipeline with lint, test, coverage, and policy enforcement.
-# Version: 0.3.1
-# Author: Ali Kahwaji - CTO
+# Description: CI pipeline excluding commitlint; commit message validation is enforced via Lefthook.
+# Version: 0.3.2
+# Author: Ali Kahwaji
 # ----------------------------------------------
 
   name: Continuous Integration
@@ -48,16 +48,6 @@
             if ! [[ "$BRANCH_NAME" =~ ^(phase|feature|bugfix|release|develop)/?$ ]]; then
               echo "Invalid branch name: $BRANCH_NAME"
               exit 1
-            fi
-  
-        - name: Lint Commit Messages
-          run: |
-            git fetch --depth=2 origin ${{ github.head_ref || github.ref_name }}
-            COMMITS=$(git rev-list --count HEAD)
-            if [ "$COMMITS" -ge 1 ]; then
-              npx commitlint --from=HEAD~1 --to=HEAD
-            else
-              echo "Skipping commitlint: insufficient history."
             fi
   
         - name: Lint-Staged Check
