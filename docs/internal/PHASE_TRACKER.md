@@ -16,8 +16,8 @@ This document tracks the progress of each roadmap phase against implementation, 
 | 1     | [Scaffolding &amp; Interfaces](#phase-1-scaffolding--interfaces)                                           | ✅ Completed | CI/CD, commit hooks, linting, structure               |
 | 2     | [Embedding Adapters](#phase-2-embedding-adapters)                                                          | ✅ Completed | OpenAI, Cohere, HuggingFace embeddings                |
 | 3     | [Vector Store Integrations](#phase-3-vector-store-integrations)                                            | ✅ Completed      | Pinecone, Chroma, Redis, Weaviate connectors          |
-| 4     | [Core Pipeline Implementation](#phase-4-core-pipeline-implementation)                                      | 🔜 Next   | createRagPipeline, ContextManager                     |
-| 5     | [LLM Client Abstraction](#phase-5-llm-client-abstraction)                                                  | ⏳ Planned   | OpenAI, Anthropic, injectable providers               |
+| 4     | [Core Pipeline Implementation](#phase-4-core-pipeline-implementation)                                      | ✅ Completed   | createRagPipeline, ContextManager                     |
+| 5     | [LLM Client Abstraction](#phase-5-llm-client-abstraction)                                                  | 🔜 Next   | OpenAI, Anthropic, injectable providers               |
 | 6     | [Developer Experience Enhancements](#phase-6-developer-experience-enhancements)                            | ⏳ Planned   | CLI, DSL, visualizer                                  |
 | 7     | [Observability &amp; Performance](#phase-7-observability--performance)                                     | ⏳ Planned   | Tracing, metrics, benchmarks                          |
 | 8     | [Security &amp; Dependency Hygiene](#phase-8-security--dependency-hygiene)                                 | ⏳ Planned   | Snyk, OWASP, Renovate, secret scanning                |
