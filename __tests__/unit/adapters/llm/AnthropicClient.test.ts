@@ -1,7 +1,7 @@
 /**
  * File: __tests__/unit/adapters/llm/AnthropicClient.test.ts
  * Description: Unit tests for AnthropicClient implementing ILLMClient.
- * Version: 0.1.0
+ * Version: 0.1.1
  * Author: Ali Kahwaji
  */
 
