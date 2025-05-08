@@ -21,14 +21,14 @@ export class AnthropicClient implements ILLMClient {
     return this._model;
   }
 
-  async generate(prompt: string, context: string[] = []): Promise<string> {
+  async generate(prompt: string, _context: string[] = []): Promise<string> {
     // TODO: implement Claude completion using fetch()
     return '[AnthropicClient] Mock response';
   }
 
   async stream(
     prompt: string,
-    context: string[] = [],
+    _context: string[] = [],
     onToken: (token: string) => void
   ): Promise<void> {
     // TODO: implement Claude streaming using SSE or streaming API
