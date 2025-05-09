@@ -1,0 +1,17 @@
+{
+    "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+    "extends": ["config:recommended"],
+    "labels": ["dependencies", "renovate"],
+    "packageRules": [
+      {
+        "matchDepTypes": ["devDependencies"],
+        "groupName": "devDeps"
+      },
+      {
+        "matchDepTypes": ["dependencies"],
+        "groupName": "runtime-deps"
+      }
+    ],
+    "schedule": ["after 10pm every weekday", "before 5am every weekday"]
+  }
+  

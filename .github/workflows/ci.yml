@@ -1,7 +1,7 @@
 # ----------------------------------------------
 # File: .github/workflows/ci.yml
-# Description: CI pipeline excluding commitlint; commit message validation is enforced via Lefthook.
-# Version: 0.3.2
+# Description: CI pipeline including Snyk, audit, and ZAP scan for security.
+# Version: 0.4.1
 # Author: Ali Kahwaji
 # ----------------------------------------------
 
@@ -41,6 +41,16 @@
   
         - name: Run Coverage
           run: npm run test:coverage
+  
+        - name: Run Snyk for Dependency Vulnerabilities
+          run: |
+            npm install -g snyk
+            snyk test
+          env:
+            SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+  
+        - name: Run npm audit for known issues
+          run: npm audit --audit-level=high || true
   
         - name: Enforce Branch Naming Convention
           run: |

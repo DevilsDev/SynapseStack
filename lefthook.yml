@@ -1,7 +1,7 @@
 # ----------------------------------------------
 # File: lefthook.yml
-# Description: Git hook definitions with commit message linting enforced pre-push.
-# Version: 0.3.0
+# Description: Git hook configuration with pre-commit security enforcement.
+# Version: 0.4.1
 # Author: Ali Kahwaji
 # ----------------------------------------------
 
@@ -13,6 +13,10 @@ hooks:
         run: npm run lint
       prettier:
         run: npx prettier --check .
+      gitleaks:
+        run: gitleaks detect --no-banner --report-format short --redact || exit 1
+      dotenv-linter:
+        run: npx dotenv-linter .env.example || exit 0
 
   commit-msg:
     scripts:
