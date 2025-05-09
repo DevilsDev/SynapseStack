@@ -8,17 +8,17 @@ This document tracks the progress of each roadmap phase against implementation, 
 
 ---
 
-##  Roadmap Overview
+## Roadmap Overview
 
 | Phase | Title                                                                                                   | Status       | Link                                                  |
 | ----- | ------------------------------------------------------------------------------------------------------- | ------------ | ----------------------------------------------------- |
 | 0     | [Discovery &amp; Design](#phase-0-discovery--design)                                                       | ✅ Completed | Interfaces, ADRs, TypeScript setup                    |
 | 1     | [Scaffolding &amp; Interfaces](#phase-1-scaffolding--interfaces)                                           | ✅ Completed | CI/CD, commit hooks, linting, structure               |
 | 2     | [Embedding Adapters](#phase-2-embedding-adapters)                                                          | ✅ Completed | OpenAI, Cohere, HuggingFace embeddings                |
-| 3     | [Vector Store Integrations](#phase-3-vector-store-integrations)                                            | ✅ Completed      | Pinecone, Chroma, Redis, Weaviate connectors          |
-| 4     | [Core Pipeline Implementation](#phase-4-core-pipeline-implementation)                                      | ✅ Completed   | createRagPipeline, ContextManager                     |
-| 5     | [LLM Client Abstraction](#phase-5-llm-client-abstraction)                                                  | 🔜 Next   | OpenAI, Anthropic, injectable providers               |
-| 6     | [Developer Experience Enhancements](#phase-6-developer-experience-enhancements)                            | ⏳ Planned   | CLI, DSL, visualizer                                  |
+| 3     | [Vector Store Integrations](#phase-3-vector-store-integrations)                                            | ✅ Completed | Pinecone, Chroma, Redis, Weaviate connectors          |
+| 4     | [Core Pipeline Implementation](#phase-4-core-pipeline-implementation)                                      | ✅ Completed | createRagPipeline, ContextManager                     |
+| 5     | [LLM Client Abstraction](#phase-5-llm-client-abstraction)                                                  | ✅ Completed | OpenAI, Anthropic, injectable providers               |
+| 6     | [Developer Experience Enhancements](#phase-6-developer-experience-enhancements)                            | 🔜 Next      | CLI, DSL, visualizer                                  |
 | 7     | [Observability &amp; Performance](#phase-7-observability--performance)                                     | ⏳ Planned   | Tracing, metrics, benchmarks                          |
 | 8     | [Security &amp; Dependency Hygiene](#phase-8-security--dependency-hygiene)                                 | ⏳ Planned   | Snyk, OWASP, Renovate, secret scanning                |
 | 9     | [Documentation &amp; Governance](#phase-9-documentation--governance)                                       | ⏳ Planned   | Docusaurus, CONTRIBUTING, versioning                  |
@@ -49,41 +49,49 @@ This document tracks the progress of each roadmap phase against implementation, 
 
 ### Phase 2: Embedding Adapters
 
--  Branch: phase/2-openai-adapter
--  File scaffold: src/adapters/openai/OpenAIEmbeddingProvider.ts
--  Unit tests under __tests__/unit/adapters/
--  Adapter conforms to IEmbeddingProvider
--  ADR 0003 completed for embedding adapter design
+- Branch: phase/2-openai-adapter
+- File scaffold: src/adapters/openai/OpenAIEmbeddingProvider.ts
+- Unit tests under __tests__/unit/adapters/
+- Adapter conforms to IEmbeddingProvider
+- ADR 0003 completed for embedding adapter design
 
 ### Phase 3: Vector Store Integrations
 
--  Pinecone and Chroma modules implemented under `src/adapters/vectorstore/`
--  Redis and Weaviate stubs scaffolded with interface compliance
--  Docker Compose setup added for Chroma/Redis
--  `dev-start.sh` script created with health checks
--  CI tests pass for placeholder methods
-
+- Pinecone and Chroma modules implemented under `src/adapters/vectorstore/`
+- Redis and Weaviate stubs scaffolded with interface compliance
+- Docker Compose setup added for Chroma/Redis
+- `dev-start.sh` script created with health checks
+- CI tests pass for placeholder methods
 
 ### Phase 4: Core Pipeline Implementation
 
--  Implemented `createRagPipeline()` orchestration function under `src/engines`
--  Created `ContextManager` to manage per-session history and context stack
--  E2E integration test under `__tests__/integration/pipeline.e2e.test.ts` using mocks
--  ADR 0005 documented design rationale and injection pattern
--  CI passed with test + lint + coverage
-
+- Implemented `createRagPipeline()` orchestration function under `src/engines`
+- Created `ContextManager` to manage per-session history and context stack
+- E2E integration test under `__tests__/integration/pipeline.e2e.test.ts` using mocks
+- ADR 0005 documented design rationale and injection pattern
+- CI passed with test + lint + coverage
 
 ### Phase 5: LLM Client Abstraction
 
-- [ ] OpenAI, Anthropic wrapper classes
-- [ ] Custom provider injection
-- [ ] Extend `ILLMClient` contract
+- OpenAIClient implemented using OpenAI SDK v4 with `generate()` and `stream()`
+- AnthropicClient scaffolded and tested for Claude-compatible interface
+- All clients conform to `ILLMClient` interface
+- Unit tests for both OpenAI and Anthropic clients
+- Pipeline supports injection via `createRagPipeline()`
+- CI, lint, and test coverage passed
 
 ### Phase 6: Developer Experience Enhancements
 
-- [ ] Scaffold `rag-cli`
-- [ ] CLI commands: init, serve, benchmark, generate-types
-- [ ] DSL schema for YAML/JSON pipelines
+- Scaffolded `rag-cli.ts` CLI entry with versioned interface
+-  Implemented CLI commands:
+  - `init`: scaffold pipeline.yaml
+  - `run`: validates pipeline against schema
+  - `visualize`: renders graph as Mermaid (with --output option)
+  - `benchmark`: runs prompt performance tests and writes CSV
+  - `generate-types`: emits TypeScript types from JSON schema
+- Added fallback prompts + YAML loaders
+- Fully tested with tsx + CLI output
+- Phase tagged as `v0.3.0-pre`
 
 ### Phase 7: Observability & Performance
 

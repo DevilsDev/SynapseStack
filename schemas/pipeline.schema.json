@@ -1,0 +1,22 @@
+$schema: http://json-schema.org/draft-07/schema#
+properties:
+  pipeline:
+    properties:
+      embedder:
+        type: string
+      llm:
+        type: string
+      name:
+        type: string
+      vectorStore:
+        type: string
+    required:
+    - name
+    - embedder
+    - vectorStore
+    - llm
+    type: object
+required:
+- pipeline
+title: RAG Pipeline Configuration
+type: object

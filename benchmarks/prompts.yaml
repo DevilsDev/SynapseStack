@@ -1,0 +1,6 @@
+- id: p1
+  text: What is SynapseStack?
+- id: p2
+  text: How does context-augmented generation work?
+- id: p3
+  text: Explain the purpose of vector store adapters.
