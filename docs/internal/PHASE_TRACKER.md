@@ -19,8 +19,8 @@ This document tracks the progress of each roadmap phase against implementation, 
 | 4     | [Core Pipeline Implementation](#phase-4-core-pipeline-implementation)                                      | ✅ Completed | createRagPipeline, ContextManager                     |
 | 5     | [LLM Client Abstraction](#phase-5-llm-client-abstraction)                                                  | ✅ Completed | OpenAI, Anthropic, injectable providers               |
 | 6     | [Developer Experience Enhancements](#phase-6-developer-experience-enhancements)                            | ✅ Completed      | CLI, DSL, visualizer                                  |
-| 7     | [Observability &amp; Performance](#phase-7-observability--performance)                                     | 🔜 Next    | Tracing, metrics, benchmarks                          |
-| 8     | [Security &amp; Dependency Hygiene](#phase-8-security--dependency-hygiene)                                 | ⏳ Planned   | Snyk, OWASP, Renovate, secret scanning                |
+| 7     | [Observability &amp; Performance](#phase-7-observability--performance)                                     | ✅ Completed    | Tracing, metrics, benchmarks                          |
+| 8     | [Security &amp; Dependency Hygiene](#phase-8-security--dependency-hygiene)                                 | 🔜 Next   | Snyk, OWASP, Renovate, secret scanning                |
 | 9     | [Documentation &amp; Governance](#phase-9-documentation--governance)                                       | ⏳ Planned   | Docusaurus, CONTRIBUTING, versioning                  |
 | 10    | [Dockerization &amp; Deployment](#phase-10-dockerization--deployment)                                      | ⏳ Planned   | Dockerfile, multi-stage builds, Compose               |
 | 11    | [Publish &amp; Launch](#phase-11-publish--launch)                                                          | ⏳ Planned   | v0.1.0 release via semantic-release                   |
@@ -106,9 +106,15 @@ This document tracks the progress of each roadmap phase against implementation, 
 
 ### Phase 8: Security & Dependency Hygiene
 
-- [ ] Configure Snyk, OWASP scans in CI
-- [ ] Enable Renovate bot for dependencies
-- [ ] Add secret scanning + audit hooks
+- [ ] Add Snyk CLI to CI for vulnerability scanning
+- [ ] (Optional) Add OWASP ZAP CLI for passive scan coverage
+- [ ] Enable Renovate bot with `.github/renovate.json` config
+- [ ] Add `.npmrc` or `audit` enforcement on CI
+- [ ] Configure pre-commit hook to run:
+  - `gitleaks` for credential secrets
+  - `dotenv-linter` for `.env` file hygiene
+- [ ] Log security metadata in CI summary
+
 
 ### Phase 9: Documentation & Governance
 
