@@ -18,8 +18,8 @@ This document tracks the progress of each roadmap phase against implementation, 
 | 3     | [Vector Store Integrations](#phase-3-vector-store-integrations)                                            | ✅ Completed | Pinecone, Chroma, Redis, Weaviate connectors          |
 | 4     | [Core Pipeline Implementation](#phase-4-core-pipeline-implementation)                                      | ✅ Completed | createRagPipeline, ContextManager                     |
 | 5     | [LLM Client Abstraction](#phase-5-llm-client-abstraction)                                                  | ✅ Completed | OpenAI, Anthropic, injectable providers               |
-| 6     | [Developer Experience Enhancements](#phase-6-developer-experience-enhancements)                            | 🔜 Next      | CLI, DSL, visualizer                                  |
-| 7     | [Observability &amp; Performance](#phase-7-observability--performance)                                     | ⏳ Planned   | Tracing, metrics, benchmarks                          |
+| 6     | [Developer Experience Enhancements](#phase-6-developer-experience-enhancements)                            | ✅ Completed      | CLI, DSL, visualizer                                  |
+| 7     | [Observability &amp; Performance](#phase-7-observability--performance)                                     | 🔜 Next    | Tracing, metrics, benchmarks                          |
 | 8     | [Security &amp; Dependency Hygiene](#phase-8-security--dependency-hygiene)                                 | ⏳ Planned   | Snyk, OWASP, Renovate, secret scanning                |
 | 9     | [Documentation &amp; Governance](#phase-9-documentation--governance)                                       | ⏳ Planned   | Docusaurus, CONTRIBUTING, versioning                  |
 | 10    | [Dockerization &amp; Deployment](#phase-10-dockerization--deployment)                                      | ⏳ Planned   | Dockerfile, multi-stage builds, Compose               |
@@ -95,9 +95,14 @@ This document tracks the progress of each roadmap phase against implementation, 
 
 ### Phase 7: Observability & Performance
 
-- [ ] Instrument with OpenTelemetry
-- [ ] Expose metrics to Prometheus
-- [ ] Add performance benchmarks under `benchmarks/`
+-  Introduced OpenTelemetry tracing in `createRagPipeline.ts` with span and histogram
+-  Exposed Prometheus-compatible metrics via `scripts/metrics-server.ts`
+-  Metrics include: `pipeline_latency_ms`, `pipeline_tokens_used`
+-  CLI `benchmark` command now writes CSV output with latency + token data
+-  CLI fallback prompts + dynamic simulation logic
+-  Observability setup script created at `scripts/install-telemetry.sh`
+-  All metrics wired into pipeline execution and CLI benchmark flow
+
 
 ### Phase 8: Security & Dependency Hygiene
 
