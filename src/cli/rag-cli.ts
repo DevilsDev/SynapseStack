@@ -1,7 +1,7 @@
 /**
  * File: src/cli/rag-cli.ts
  * Description: CLI tool for managing RAG pipelines.
- * Version: 0.6.0
+ * Version: 0.6.1
  * Author: Ali Kahwaji
  */
 
@@ -14,21 +14,41 @@ import addFormats from 'ajv-formats';
 import { compile } from 'json-schema-to-typescript';
 
 const program = new Command();
-program.name('rag-cli').description('SynapseStack CLI for managing RAG pipelines').version('0.6.0');
+program.name('rag-cli').description('SynapseStack CLI for managing RAG pipelines').version('0.6.1');
+
+const DEFAULT_EMBEDDER = 'OpenAI';
+const DEFAULT_VECTOR_STORE = 'Pinecone';
+const DEFAULT_LLM = 'OpenAI';
+const DEFAULT_CONFIG_PATH = 'pipeline.yaml';
+
+// types
+interface PipelineConfig {
+  pipeline: {
+    name: string;
+    embedder: string;
+    vectorStore: string;
+    llm: string;
+  };
+}
+
+interface Prompt {
+  id: string;
+  text: string;
+}
 
 program
   .command('init')
   .description('Scaffold a default RAG pipeline YAML config')
   .action(() => {
-    const config = {
+    const config: PipelineConfig = {
       pipeline: {
         name: 'sample-pipeline',
-        embedder: 'OpenAI',
-        vectorStore: 'Pinecone',
-        llm: 'OpenAI'
+        embedder: DEFAULT_EMBEDDER,
+        vectorStore: DEFAULT_VECTOR_STORE,
+        llm: DEFAULT_LLM
       }
     };
-    fs.writeFileSync('pipeline.yaml', yaml.dump(config));
+    fs.writeFileSync(DEFAULT_CONFIG_PATH, yaml.dump(config));
     console.log(' pipeline.yaml scaffolded');
   });
 
@@ -37,10 +57,10 @@ program
   .description('Run a pipeline config from YAML or JSON')
   .action(() => {
     const schemaPath = path.resolve('schemas/pipeline.schema.json');
-    const configPath = path.resolve('pipeline.yaml');
+    const configPath = path.resolve(DEFAULT_CONFIG_PATH);
 
     const schema = yaml.load(fs.readFileSync(schemaPath, 'utf8'));
-    const config = yaml.load(fs.readFileSync(configPath, 'utf8'));
+    const config = yaml.load(fs.readFileSync(configPath, 'utf8')) as PipelineConfig;
 
     const ajv = new Ajv({ allErrors: true, strict: false });
     addFormats(ajv);
@@ -62,12 +82,10 @@ program
   .description('Render a pipeline graph using Mermaid syntax')
   .option('-o, --output <file>', 'Write Mermaid graph to a markdown file')
   .action((options) => {
-    const configPath = path.resolve('pipeline.yaml');
-    const config = yaml.load(fs.readFileSync(configPath, 'utf8')) as any;
+    const configPath = path.resolve(DEFAULT_CONFIG_PATH);
+    const config = yaml.load(fs.readFileSync(configPath, 'utf8')) as PipelineConfig;
 
-    const embedder = config?.pipeline?.embedder || 'Embedder';
-    const vectorStore = config?.pipeline?.vectorStore || 'VectorStore';
-    const llm = config?.pipeline?.llm || 'LLM';
+    const { embedder, vectorStore, llm } = config.pipeline;
 
     const mermaid = [
       '```mermaid',
@@ -77,7 +95,7 @@ program
       `    V --> L["${llm}"]`,
       '    L --> output["Final Response"]',
       '```'
-    ].join('');
+    ].join('\n');
 
     if (options.output) {
       fs.writeFileSync(options.output, mermaid);
@@ -96,7 +114,7 @@ program
     const promptPath = options.prompts;
     if (!fs.existsSync(promptPath)) {
       console.warn(`  Prompts file not found at ${promptPath}`);
-      const samplePrompts = [
+      const samplePrompts: Prompt[] = [
         { id: 'p1', text: 'What is SynapseStack?' },
         { id: 'p2', text: 'Explain RAG orchestration.' }
       ];
@@ -105,7 +123,7 @@ program
       console.log(` Created fallback prompts file: ${promptPath}`);
     }
 
-    const prompts = yaml.load(fs.readFileSync(promptPath, 'utf8')) as any[];
+    const prompts = yaml.load(fs.readFileSync(promptPath, 'utf8')) as Prompt[];
     if (!Array.isArray(prompts)) {
       console.error(' prompts.yaml must contain an array of prompt inputs');
       process.exit(1);
@@ -123,7 +141,7 @@ program
     }
 
     if (options.output) {
-      fs.writeFileSync(options.output, results.join(''));
+      fs.writeFileSync(options.output, results.join('\n'));
       console.log(` Benchmark results written to ${options.output}`);
     }
   });
