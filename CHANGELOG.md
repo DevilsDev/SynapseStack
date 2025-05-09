@@ -1,5 +1,42 @@
 # Changelog
 
+Next: [v0.4.0-pre] → Launch Phase 7: Observability & Tracing
+
+---
+
+## [v0.3.0-pre] - Phase 4–6 Completion: Pipeline, LLM, CLI System
+
+### Phase 6: Developer Experience Enhancements
+
+- Introduced `rag-cli.ts` with 5 CLI commands:
+  - `init`: Scaffold pipeline.yaml
+  - `run`: Validate and simulate pipeline.yaml
+  - `visualize`: Render Mermaid graph to stdout or file
+  - `benchmark`: Run structured prompts and export CSV metrics
+  - `generate-types`: Emit TypeScript from schema via json-schema-to-typescript
+- Added YAML + JSON support using js-yaml
+- Schema located in `schemas/pipeline.schema.json`
+- Mermaid output verified, CSV written to disk
+- CLI versioned as `0.6.0` in tracker
+
+
+### Phase 5: LLM Client Abstraction
+
+- Implemented `OpenAIClient` with full `ILLMClient` support
+- Added `stream()` and `generate()` methods with mock test coverage
+- Scaffolded `AnthropicClient` with placeholder logic and mocks
+- Unit tests added for both clients
+- ADR 0006 logged to capture LLM abstraction design decisions
+
+
+### Phase 4: Core Pipeline Implementation
+
+- Implemented `createRagPipeline()` orchestration with injected `IEmbeddingProvider`, `IVectorStore`, and `ILLMClient`
+- Introduced `ContextManager` for prompt memory management
+- Created E2E test: `pipeline.e2e.test.ts` with full mocked flow
+- Added dependency-injection-ready config for future DSL support
+- ADR 0005 created to document orchestration strategy
+
 ## [v0.2.0-pre] - Phase 3 Completion & CI Stabilization
 
 ### Added
