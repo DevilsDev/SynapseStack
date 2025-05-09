@@ -1,0 +1,8 @@
+{
+  "pipeline": {
+    "name": "sample-pipeline",
+    "embedder": "OpenAI",
+    "vectorStore": "Pinecone",
+    "llm": "OpenAI"
+  }
+}
