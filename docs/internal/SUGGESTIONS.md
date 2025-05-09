@@ -84,3 +84,22 @@ Roadmap
 
 **Classified As:** test
 **Phase Suggested:** Phase : 1 - Scaffolding & CI Architecture
+
+## Suggestion — 2025-05-09T07:15:04.117Z
+
+**Commit Summary:**
+
+Suggested Commit Message:
+
+chore(ai): add telemetry scripts and update related documentation
+
+This commit includes the addition of new telemetry scripts and updates to the related documentation. It also includes minor changes to the createRagPipeline and updates to package files.
+
+**Suggested Next Task:**
+
+Next Development Task: Implement and test the newly added telemetry scripts in the AI system to ensure they are working as expected. 
+
+Roadmap
+
+**Classified As:** test
+**Phase Suggested:** Phase : 7 - Observability & Performance
