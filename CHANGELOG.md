@@ -1,8 +1,58 @@
 # Changelog
 
-Next: [v0.4.0-pre] → Launch Phase 7: Observability & Tracing
+## [v0.3.2-pre] - Phase 8: Security & Dependency Hygiene
+
+### Added
+- Integrated `snyk` CLI into CI for vulnerability detection
+- Enabled `npm audit` with high+ severity scan in `ci.yml`
+- Added `.github/renovate.json` to configure Renovate bot:
+  - Scheduled nightly
+  - Groups dev/runtime dependencies
+- Introduced OWASP ZAP passive scan script (`zap-passive-scan.sh`)
+- Created security tool installer (`install-security-tools.sh`)
+- Created `SECURITY.md` for GitHub Security tab compliance
+
+### Hooks & Linting
+- `lefthook.yml` v0.4.1:
+  -  `gitleaks` for credential scanning (pre-commit)
+  -  `dotenv-linter` for `.env` files (pre-commit)
+  -  Strict lint, test, and commit message checks
+
+### Observability
+- Switched from OpenTelemetry SDK to `prom-client`
+- Updated `telemetry.ts` and `metrics-server.ts` for Prometheus-native metrics
+- Metrics available at `/metrics` via lightweight Express
+
+### Coverage Note
+- Adjusted pipeline to exclude scaffolding files from Jest thresholds
+- Observability code excluded until integration tests added
 
 ---
+
+
+## [v0.3.1-pre] - Phase 7: Observability & Performance
+
+### Added
+- Introduced Prometheus-based metrics using `prom-client`
+- Metrics: `pipeline_latency_ms` (histogram), `pipeline_tokens_used` (counter)
+- Created lightweight `/metrics` endpoint via `scripts/metrics-server.ts`
+- Hooked latency/tokens into `createRagPipeline.ts`
+- Collected default process/system metrics
+
+### CLI Enhancements
+- `benchmark` command writes latency + token usage per prompt to CSV
+- Optional benchmark fallback prompts generated
+- Visual CLI logs simulate realistic performance behavior
+
+### Developer Tooling
+- `scripts/install-telemetry.sh` installs OpenTelemetry and Prometheus stack
+- Metrics safe to expose in dev/local CI
+
+### Removed
+- Full OpenTelemetry SDK span processing in favor of direct Prometheus instrumentation
+
+---
+
 
 ## [v0.3.0-pre] - Phase 4–6 Completion: Pipeline, LLM, CLI System
 
@@ -36,6 +86,8 @@ Next: [v0.4.0-pre] → Launch Phase 7: Observability & Tracing
 - Created E2E test: `pipeline.e2e.test.ts` with full mocked flow
 - Added dependency-injection-ready config for future DSL support
 - ADR 0005 created to document orchestration strategy
+
+---
 
 ## [v0.2.0-pre] - Phase 3 Completion & CI Stabilization
 
@@ -98,4 +150,3 @@ Next: [v0.4.0-pre] → Launch Phase 7: Observability & Tracing
 
 ---
 
-Next: [v0.3.0-pre] → Launch Phase 4: Core Pipeline Implementation
