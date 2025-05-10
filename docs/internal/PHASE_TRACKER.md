@@ -121,9 +121,14 @@ This document tracks the progress of each roadmap phase against implementation, 
 
 ### Phase 9: Documentation & Governance
 
-- [ ] Split `docs/public` and `docs/internal`
-- [ ] Add `CONTRIBUTING.md`, `GOVERNANCE.md`
-- [ ] Configure Docusaurus site
+- [ ] Split public and internal documentation: `docs/public`, `docs/internal`
+- [ ] Add `CONTRIBUTING.md` (setup, PR flow, commit naming)
+- [ ] Add `GOVERNANCE.md` (roles, voting, roadmap alignment)
+- [ ] Configure Docusaurus for hosted docs (optional deploy)
+- [ ] Add `docs/internal/API_VERSIONING.md` for semver + deprecation rules
+- [ ] Update root `README.md` with usage, CLI, badges
+- [ ] Link `PHASE_TRACKER.md` and `SECURITY.md` in appropriate doc files
+
 
 ### Phase 10: Dockerization & Deployment
 
