@@ -1,7 +1,7 @@
 /**
  * File: scripts/validate-pipeline.ts
  * Description: Validates pipeline.yaml against pipeline.schema.json using AJV.
- * Version: 0.1.1
+ * Version: 0.1.2
  * Author: Ali Kahwaji
  */
 
@@ -17,8 +17,8 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const schemaPath = path.resolve(__dirname, '../schemas/pipeline.schema.json');
 const configPath = path.resolve(__dirname, '../pipeline.yaml');
 
-const schema = yaml.load(fs.readFileSync(schemaPath, 'utf8'));
-const config = yaml.load(fs.readFileSync(configPath, 'utf8'));
+const schema = yaml.load(fs.readFileSync(schemaPath, 'utf8')) as object;
+const config = yaml.load(fs.readFileSync(configPath, 'utf8')) as object;
 
 const ajv = new Ajv({ allErrors: true, strict: false });
 addFormats(ajv);

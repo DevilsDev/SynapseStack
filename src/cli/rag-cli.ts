@@ -1,7 +1,7 @@
 /**
  * File: src/cli/rag-cli.ts
  * Description: CLI tool for managing RAG pipelines.
- * Version: 0.6.1
+ * Version: 0.6.2
  * Author: Ali Kahwaji
  */
 
@@ -14,14 +14,10 @@ import addFormats from 'ajv-formats';
 import { compile } from 'json-schema-to-typescript';
 
 const program = new Command();
-program.name('rag-cli').description('SynapseStack CLI for managing RAG pipelines').version('0.6.1');
+program.name('rag-cli').description('SynapseStack CLI for managing RAG pipelines').version('0.6.2');
 
-const DEFAULT_EMBEDDER = 'OpenAI';
-const DEFAULT_VECTOR_STORE = 'Pinecone';
-const DEFAULT_LLM = 'OpenAI';
 const DEFAULT_CONFIG_PATH = 'pipeline.yaml';
 
-// types
 interface PipelineConfig {
   pipeline: {
     name: string;
@@ -43,9 +39,9 @@ program
     const config: PipelineConfig = {
       pipeline: {
         name: 'sample-pipeline',
-        embedder: DEFAULT_EMBEDDER,
-        vectorStore: DEFAULT_VECTOR_STORE,
-        llm: DEFAULT_LLM
+        embedder: 'OpenAI',
+        vectorStore: 'Pinecone',
+        llm: 'OpenAI'
       }
     };
     fs.writeFileSync(DEFAULT_CONFIG_PATH, yaml.dump(config));
@@ -59,7 +55,7 @@ program
     const schemaPath = path.resolve('schemas/pipeline.schema.json');
     const configPath = path.resolve(DEFAULT_CONFIG_PATH);
 
-    const schema = yaml.load(fs.readFileSync(schemaPath, 'utf8'));
+    const schema = yaml.load(fs.readFileSync(schemaPath, 'utf8')) as object;
     const config = yaml.load(fs.readFileSync(configPath, 'utf8')) as PipelineConfig;
 
     const ajv = new Ajv({ allErrors: true, strict: false });
@@ -152,7 +148,7 @@ program
   .option('-s, --schema <file>', 'Path to JSON schema file', 'schemas/pipeline.schema.json')
   .option('-o, --output <file>', 'Path to output .d.ts file', 'schemas/pipeline.schema.d.ts')
   .action(async (options) => {
-    const schema = yaml.load(fs.readFileSync(path.resolve(options.schema), 'utf8'));
+    const schema = yaml.load(fs.readFileSync(path.resolve(options.schema), 'utf8')) as object;
     const ts = await compile(schema, 'PipelineConfig');
     fs.writeFileSync(options.output, ts);
     console.log(` Types written to ${options.output}`);

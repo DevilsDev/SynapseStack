@@ -1,23 +1,23 @@
 /**
  * File: scripts/metrics-server.ts
  * Description: Lightweight Express server to expose Prometheus /metrics endpoint.
- * Version: 0.1.0
+ * Version: 0.2.1
  * Author: Ali Kahwaji
  */
 
 import express from 'express';
-import { PrometheusExporter } from '@opentelemetry/exporter-prometheus';
+import client from 'prom-client';
 
 const app = express();
 const port = process.env.METRICS_PORT || 9464;
 
-const exporter = new PrometheusExporter({ startServer: false });
+client.collectDefaultMetrics();
 
-app.get('/metrics', async (req, res) => {
-  res.set('Content-Type', exporter.contentType);
-  res.end(await exporter.getMetricsAsPrometheusPlainText());
+app.get('/metrics', async (_req: express.Request, res: express.Response) => {
+  res.set('Content-Type', client.register.contentType);
+  res.end(await client.register.metrics());
 });
 
 app.listen(port, () => {
-  console.log(`Prometheus metrics server running at http://localhost:${port}/metrics`);
+  console.log(` Prometheus metrics server running at http://localhost:${port}/metrics`);
 });
