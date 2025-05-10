@@ -18,10 +18,10 @@ This document tracks the progress of each roadmap phase against implementation, 
 | 3     | [Vector Store Integrations](#phase-3-vector-store-integrations)                                            | ✅ Completed | Pinecone, Chroma, Redis, Weaviate connectors          |
 | 4     | [Core Pipeline Implementation](#phase-4-core-pipeline-implementation)                                      | ✅ Completed | createRagPipeline, ContextManager                     |
 | 5     | [LLM Client Abstraction](#phase-5-llm-client-abstraction)                                                  | ✅ Completed | OpenAI, Anthropic, injectable providers               |
-| 6     | [Developer Experience Enhancements](#phase-6-developer-experience-enhancements)                            | ✅ Completed      | CLI, DSL, visualizer                                  |
-| 7     | [Observability &amp; Performance](#phase-7-observability--performance)                                     | ✅ Completed    | Tracing, metrics, benchmarks                          |
-| 8     | [Security &amp; Dependency Hygiene](#phase-8-security--dependency-hygiene)                                 | 🔜 Next   | Snyk, OWASP, Renovate, secret scanning                |
-| 9     | [Documentation &amp; Governance](#phase-9-documentation--governance)                                       | ⏳ Planned   | Docusaurus, CONTRIBUTING, versioning                  |
+| 6     | [Developer Experience Enhancements](#phase-6-developer-experience-enhancements)                            | ✅ Completed | CLI, DSL, visualizer                                  |
+| 7     | [Observability &amp; Performance](#phase-7-observability--performance)                                     | ✅ Completed | Tracing, metrics, benchmarks                          |
+| 8     | [Security &amp; Dependency Hygiene](#phase-8-security--dependency-hygiene)                                 | ✅ Completed     | Snyk, OWASP, Renovate, secret scanning                |
+| 9     | [Documentation &amp; Governance](#phase-9-documentation--governance)                                       | 🔜 Next    | Docusaurus, CONTRIBUTING, versioning                  |
 | 10    | [Dockerization &amp; Deployment](#phase-10-dockerization--deployment)                                      | ⏳ Planned   | Dockerfile, multi-stage builds, Compose               |
 | 11    | [Publish &amp; Launch](#phase-11-publish--launch)                                                          | ⏳ Planned   | v0.1.0 release via semantic-release                   |
 | 12    | [AI-Powered Prompt Generator (Internal)](#phase-12-ai-powered-prompt-generator-internal)                   | ✅ Completed | Strategist + commit assistant + logging               |
@@ -83,38 +83,41 @@ This document tracks the progress of each roadmap phase against implementation, 
 ### Phase 6: Developer Experience Enhancements
 
 - Scaffolded `rag-cli.ts` CLI entry with versioned interface
--  Implemented CLI commands:
-  - `init`: scaffold pipeline.yaml
-  - `run`: validates pipeline against schema
-  - `visualize`: renders graph as Mermaid (with --output option)
-  - `benchmark`: runs prompt performance tests and writes CSV
-  - `generate-types`: emits TypeScript types from JSON schema
+- Implemented CLI commands:
+- `init`: scaffold pipeline.yaml
+- `run`: validates pipeline against schema
+- `visualize`: renders graph as Mermaid (with --output option)
+- `benchmark`: runs prompt performance tests and writes CSV
+- `generate-types`: emits TypeScript types from JSON schema
 - Added fallback prompts + YAML loaders
 - Fully tested with tsx + CLI output
 - Phase tagged as `v0.3.0-pre`
 
 ### Phase 7: Observability & Performance
 
--  Introduced OpenTelemetry tracing in `createRagPipeline.ts` with span and histogram
--  Exposed Prometheus-compatible metrics via `scripts/metrics-server.ts`
--  Metrics include: `pipeline_latency_ms`, `pipeline_tokens_used`
--  CLI `benchmark` command now writes CSV output with latency + token data
--  CLI fallback prompts + dynamic simulation logic
--  Observability setup script created at `scripts/install-telemetry.sh`
--  All metrics wired into pipeline execution and CLI benchmark flow
-
+- Introduced OpenTelemetry tracing in `createRagPipeline.ts` with span and histogram
+- Exposed Prometheus-compatible metrics via `scripts/metrics-server.ts`
+- Metrics include: `pipeline_latency_ms`, `pipeline_tokens_used`
+- CLI `benchmark` command now writes CSV output with latency + token data
+- CLI fallback prompts + dynamic simulation logic
+- Observability setup script created at `scripts/install-telemetry.sh`
+- All metrics wired into pipeline execution and CLI benchmark flow
 
 ### Phase 8: Security & Dependency Hygiene
 
-- [ ] Add Snyk CLI to CI for vulnerability scanning
-- [ ] (Optional) Add OWASP ZAP CLI for passive scan coverage
-- [ ] Enable Renovate bot with `.github/renovate.json` config
-- [ ] Add `.npmrc` or `audit` enforcement on CI
-- [ ] Configure pre-commit hook to run:
-  - `gitleaks` for credential secrets
-  - `dotenv-linter` for `.env` file hygiene
-- [ ] Log security metadata in CI summary
+* Integrated `snyk` CLI into `ci.yml` with `SNYK_TOKEN` authentication
+* Added `npm audit` (high+ severity) to CI pipeline
+* Configured Renovate bot with `.github/renovate.json` (nightly schedule, grouped updates)
+* Enabled pre-commit hooks via `lefthook.yml v0.4.1`:
 
+  * `gitleaks`: scans for secrets
+  * `dotenv-linter`: enforces `.env` format hygiene
+* Created `SECURITY.md` for coordinated disclosure and policy compliance
+* Added `scripts/install-security-tools.sh` for installing `snyk` and `gitleaks`
+* Added `scripts/zap-passive-scan.sh` for optional OWASP ZAP coverage
+* Switched to `prom-client` for Prometheus metrics; simplified `telemetry.ts`
+* `/metrics` endpoint exposed via `metrics-server.ts`
+* CLI tested for secret safety and hygiene hooks
 
 ### Phase 9: Documentation & Governance
 
