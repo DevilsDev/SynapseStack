@@ -20,9 +20,9 @@ This document tracks the progress of each roadmap phase against implementation, 
 | 5     | [LLM Client Abstraction](#phase-5-llm-client-abstraction)                                                  | ✅ Completed | OpenAI, Anthropic, injectable providers               |
 | 6     | [Developer Experience Enhancements](#phase-6-developer-experience-enhancements)                            | ✅ Completed | CLI, DSL, visualizer                                  |
 | 7     | [Observability &amp; Performance](#phase-7-observability--performance)                                     | ✅ Completed | Tracing, metrics, benchmarks                          |
-| 8     | [Security &amp; Dependency Hygiene](#phase-8-security--dependency-hygiene)                                 | ✅ Completed     | Snyk, OWASP, Renovate, secret scanning                |
-| 9     | [Documentation &amp; Governance](#phase-9-documentation--governance)                                       | 🔜 Next    | Docusaurus, CONTRIBUTING, versioning                  |
-| 10    | [Dockerization &amp; Deployment](#phase-10-dockerization--deployment)                                      | ⏳ Planned   | Dockerfile, multi-stage builds, Compose               |
+| 8     | [Security &amp; Dependency Hygiene](#phase-8-security--dependency-hygiene)                                 | ✅ Completed | Snyk, OWASP, Renovate, secret scanning                |
+| 9     | [Documentation &amp; Governance](#phase-9-documentation--governance)                                       | ✅ Completed | Docusaurus, CONTRIBUTING, versioning                  |
+| 10    | [Dockerization &amp; Deployment](#phase-10-dockerization--deployment)                                      | 🔜 Next      | Dockerfile, multi-stage builds, Compose               |
 | 11    | [Publish &amp; Launch](#phase-11-publish--launch)                                                          | ⏳ Planned   | v0.1.0 release via semantic-release                   |
 | 12    | [AI-Powered Prompt Generator (Internal)](#phase-12-ai-powered-prompt-generator-internal)                   | ✅ Completed | Strategist + commit assistant + logging               |
 | 13    | [Multi-Embedding Strategy &amp; Registry](#phase-13-multi-embedding-strategy--registry)                    | ⏳ Planned   | Routing by language/domain with fallback models       |
@@ -121,14 +121,27 @@ This document tracks the progress of each roadmap phase against implementation, 
 
 ### Phase 9: Documentation & Governance
 
-- [ ] Split public and internal documentation: `docs/public`, `docs/internal`
-- [ ] Add `CONTRIBUTING.md` (setup, PR flow, commit naming)
-- [ ] Add `GOVERNANCE.md` (roles, voting, roadmap alignment)
-- [ ] Configure Docusaurus for hosted docs (optional deploy)
-- [ ] Add `docs/internal/API_VERSIONING.md` for semver + deprecation rules
-- [ ] Update root `README.md` with usage, CLI, badges
-- [ ] Link `PHASE_TRACKER.md` and `SECURITY.md` in appropriate doc files
+- Split public and internal docs: `docs/public/`, `docs/internal/`
+- Created root-level `CONTRIBUTING.md` for PR flow, commit standards, hooks
+- Created `GOVERNANCE.md` with maintainer roles, voting, roadmap alignment
+- Created `docs/internal/API_VERSIONING.md` with SemVer + deprecation policy
+- Updated root `README.md` with CLI commands, folder structure, and docs links
+- Linked `SECURITY.md` and `PHASE_TRACKER.md` across top-level and public docs
+- Created redirect-style `docs/public/README.md` as Docusaurus entry placeholder
+- Launched Docusaurus site at `docs-site/` with CLI-first structure
+- Custom landing page with links to sandbox, CLI, benchmarks
+- Added sidebar + pages: `cli-reference.md`, `sandbox.md`, `cli-sim.md`, `benchmark-visual.md`
+- Component: `Sandbox.tsx` with YAML to Mermaid live rendering
+- Component: `BenchmarkViewer.tsx` with CSV upload + Recharts
 
+#### Developer Experience Summary
+
+| Experience Pillar         | Status      | Details                                                             |
+| ------------------------- | ----------- | ------------------------------------------------------------------- |
+| Core Developer Simulation | Complete    | Sandbox + CLI sim stub                                              |
+| Visualization & Feedback  | In Progress | BenchmarkViewer scaffolded, charts embedded                         |
+| Authoring & Schema UX     | CLI-based   | Schema validator, type generator, CLI validator                     |
+| Advanced Editor Widgets   | Next        | Drag-drop builder, type explorer, and playground planned (Phase 10) |
 
 ### Phase 10: Dockerization & Deployment
 

@@ -30,6 +30,25 @@ const result = await pipeline.query("What is vector search?");
 console.log(result);
 ```
 
+##  Public Docs – SynapseStack
+
+Welcome to the public documentation portal for **SynapseStack**.
+
+To get started with the CLI, see the main project README:
+
+ [Main CLI Guide and Setup](../../README.md)
+
+You may also explore:
+- `docs/public/` for Docusaurus-ready guides
+- `docs/internal/` for maintainers (if authorized)
+
+---
+
+For installation, benchmarking, and visualization:
+```bash
+npx tsx src/cli/rag-cli.ts --help
+```
+
 ## Documentation
 - [Getting Started](./QUICKSTART.md)
 - [API Reference](./API_REFERENCE.md)
