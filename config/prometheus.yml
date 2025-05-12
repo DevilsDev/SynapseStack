@@ -1,0 +1,14 @@
+# ----------------------------------------------
+# File: config/prometheus.yml
+# Description: Prometheus scrape config for SynapseStack /metrics
+# Version: 0.1.0
+# Author: Ali Kahwaji
+# ----------------------------------------------
+
+global:
+  scrape_interval: 10s
+
+scrape_configs:
+  - job_name: 'synapsestack'
+    static_configs:
+      - targets: ['host.docker.internal:9464']
