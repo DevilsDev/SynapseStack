@@ -1,0 +1,29 @@
+# Node dependencies and tooling
+node_modules
+npm-debug.log
+
+# Local/dev/IDE
+.env
+.env.*
+.DS_Store
+.idea/
+.vscode/
+
+# CI cache and coverage
+coverage/
+.cache/
+*.tsbuildinfo
+
+# Test fixtures
+__tests__/**
+benchmarks/**
+
+# Docs + site
+.docusaurus/
+build/
+docs-site/node_modules/
+docs-site/build/
+
+# Git artifacts
+.git
+.gitignore

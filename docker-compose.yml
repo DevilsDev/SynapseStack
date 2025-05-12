@@ -1,7 +1,7 @@
 # ----------------------------------------------
 # File: docker-compose.yml
-# Description: Local services for vector store integration testing
-# Version: 0.1.0
+# Description: Local services for vector store testing + CLI container + Prometheus metrics
+# Version: 0.2.0
 # Author: Ali Kahwaji
 # ----------------------------------------------
 
@@ -14,7 +14,7 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - ./data/chroma:/chroma/data
+      - chroma-data:/chroma/data
     environment:
       - IS_PERSISTENT=TRUE
 
@@ -24,5 +24,32 @@ services:
     ports:
       - "6379:6379"
     volumes:
-      - ./data/redis:/data
+      - redis-data:/data
     command: ["redis-server", "--save", "60", "1"]
+
+  cli:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: synapse-cli
+    volumes:
+      - ./:/app
+    working_dir: /app
+    entrypoint: ["npx", "tsx", "src/cli/rag-cli.ts"]
+    profiles: ["cli"]
+    stdin_open: true
+    tty: true
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./config/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+
+volumes:
+  chroma-data:
+  redis-data:

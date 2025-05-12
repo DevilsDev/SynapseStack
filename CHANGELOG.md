@@ -1,5 +1,31 @@
 # Changelog
 
+
+## [v0.5.0-pre] - Phase 10: Dockerization & Metrics Deployment
+
+### Added
+- Multi-stage `Dockerfile` for SynapseStack CLI runtime
+- `.dockerignore` for secure and efficient image context
+- `docker-compose.yml` with services:
+  - `redis`, `chroma`, `cli`, `prometheus`
+- `config/prometheus.yml` for scraping `/metrics` endpoint
+- Prometheus integration for `pipeline_latency_ms`, `pipeline_tokens_used`
+- `scripts/metrics-server.ts` exposes `/metrics` endpoint via Express
+- `scripts/emit-metrics.ts` manually emits test telemetry
+- `scripts/audit-functional.ts` tests CLI, metrics, telemetry, and CLI execution
+
+### Observability Validated
+- Prometheus target confirmed `UP`
+- Custom metrics appear via functional audit
+- Metrics persist and scrape across sessions
+
+### CLI + Metrics Integration
+- CLI pipeline execution emits latency + token metrics
+- Auditable via Prometheus queries
+- Phase now fully observability-ready
+
+---
+
 ## [v0.4.0-pre] - Phase 9: Documentation & Developer Experience
 
 ### Added

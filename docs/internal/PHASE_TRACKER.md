@@ -22,8 +22,8 @@ This document tracks the progress of each roadmap phase against implementation, 
 | 7     | [Observability &amp; Performance](#phase-7-observability--performance)                                     | ✅ Completed | Tracing, metrics, benchmarks                          |
 | 8     | [Security &amp; Dependency Hygiene](#phase-8-security--dependency-hygiene)                                 | ✅ Completed | Snyk, OWASP, Renovate, secret scanning                |
 | 9     | [Documentation &amp; Governance](#phase-9-documentation--governance)                                       | ✅ Completed | Docusaurus, CONTRIBUTING, versioning                  |
-| 10    | [Dockerization &amp; Deployment](#phase-10-dockerization--deployment)                                      | 🔜 Next      | Dockerfile, multi-stage builds, Compose               |
-| 11    | [Publish &amp; Launch](#phase-11-publish--launch)                                                          | ⏳ Planned   | v0.1.0 release via semantic-release                   |
+| 10    | [Dockerization &amp; Deployment](#phase-10-dockerization--deployment)                                      | ✅ Completed | Dockerfile, multi-stage builds, Compose               |
+| 11    | [Publish &amp; Launch](#phase-11-publish--launch)                                                          | 🔜 Next      | v0.1.0 release via semantic-release                   |
 | 12    | [AI-Powered Prompt Generator (Internal)](#phase-12-ai-powered-prompt-generator-internal)                   | ✅ Completed | Strategist + commit assistant + logging               |
 | 13    | [Multi-Embedding Strategy &amp; Registry](#phase-13-multi-embedding-strategy--registry)                    | ⏳ Planned   | Routing by language/domain with fallback models       |
 | 14    | [Pipeline Graph Visualizer &amp; DSL Preview](#phase-14-pipeline-graph-visualizer--dsl-preview)            | ⏳ Planned   | `rag-cli visualize` for graphing pipeline structure |
@@ -145,9 +145,20 @@ This document tracks the progress of each roadmap phase against implementation, 
 
 ### Phase 10: Dockerization & Deployment
 
-- [ ] Multi-stage Dockerfile
-- [ ] `docker-compose.yml`
-- [ ] Image publishing in CI
+- Multi-stage `Dockerfile` for CLI container
+- `.dockerignore` excludes dev/test clutter and node_modules
+- `docker-compose.yml` includes `cli`, `chroma`, `redis`, and `prometheus`
+- `config/prometheus.yml` scrapes custom metrics from `localhost:9464`
+- Prometheus container boots via Docker Compose
+- Metrics server emits telemetry via `telemetry.ts`
+- `metrics-server.ts` exposes `/metrics` endpoint
+- CLI emits metrics that are scrapeable and queryable by Prometheus
+- Verified scrape success via Prometheus UI and runtime audit
+- `scripts/emit-metrics.ts` emits values for manual test
+- `scripts/audit-functional.ts` validates:
+- CLI commands run
+- `pipeline.yaml` is created
+- `/metrics` returns custom telemetry
 
 ### Phase 11: Publish & Launch
 
