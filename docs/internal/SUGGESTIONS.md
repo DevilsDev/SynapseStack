@@ -217,3 +217,18 @@ Roadmap
 
 **Classified As:** test
 **Phase Suggested:** Phase : 7 - Observability & Performance
+
+## Suggestion — 2025-05-13T09:17:46.456Z
+
+**Commit Summary:**
+
+fix(test): fully mock embedder in real pipeline test to avoid API dependency
+
+**Suggested Next Task:**
+
+Next Development Task: Verify the functionality of the fully mocked embedder in the real pipeline test by running the test suite.
+
+Roadmap
+
+**Classified As:** test
+**Phase Suggested:** Phase : 4 - Core Pipeline Implementation

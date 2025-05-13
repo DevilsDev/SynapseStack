@@ -1,5 +1,11 @@
 # Changelog
 
+## [Unreleased] - Patch on develop
+
+### Fixed
+- test: Fully mocked `embedder` in `test-real-pipeline.ts` to eliminate reliance on OpenAI API
+- Ensures the test runs offline and telemetry is still observed
+
 ## [v1.0.0] - Phase 11: Publish & Launch
 
 ### Added
