@@ -1,41 +1,46 @@
 # ----------------------------------------------
 # File: .github/workflows/release.yml
-# Description: Semantic release with dry-run support for release branches.
-# Version: 0.2.0
+# Description: Semantic release with dry-run support and custom tokens
+# Version: 0.3.0
 # Author: Ali Kahwaji
 # ----------------------------------------------
 
-  name: Release
+name: Release
 
-  on:
-    push:
-      branches:
-        - main
-        - release/**
-  
-  jobs:
-    release:
-      runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v3
-  
-        - name: Set up Node.js
-          uses: actions/setup-node@v3
-          with:
-            node-version: '20'
-  
-        - name: Install dependencies
-          run: npm ci
-  
-        - name: Semantic Release (with dry-run for release/*)
-          env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          run: |
-            if [[ "$GITHUB_REF" == refs/heads/release/* ]]; then
-              echo "🔍 Dry run on release branch"
-              npx semantic-release --dry-run
-            else
-              echo "Releasing from main"
-              npx semantic-release
-            fi
-  
+on:
+  push:
+    branches:
+      - main
+      - release/**
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+      packages: write
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Semantic Release (with dry-run for release/*)
+        env:
+          GH_RELEASE_TOKEN: ${{ secrets.SYNAPSESTACK_GITHUB_TOKEN }}
+          NPM_AUTH_TOKEN: ${{ secrets.SYNAPSESTACK_NPM_TOKEN }}
+        run: |
+          if [[ "$GITHUB_REF" == refs/heads/release/* ]]; then
+            echo " Dry run on release branch"
+            GH_TOKEN=$GH_RELEASE_TOKEN NPM_TOKEN=$NPM_AUTH_TOKEN npx semantic-release --dry-run
+          else
+            echo " Releasing from main"
+            GH_TOKEN=$GH_RELEASE_TOKEN NPM_TOKEN=$NPM_AUTH_TOKEN npx semantic-release

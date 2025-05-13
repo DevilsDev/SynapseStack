@@ -23,9 +23,9 @@ This document tracks the progress of each roadmap phase against implementation, 
 | 8     | [Security &amp; Dependency Hygiene](#phase-8-security--dependency-hygiene)                                 | ✅ Completed | Snyk, OWASP, Renovate, secret scanning                |
 | 9     | [Documentation &amp; Governance](#phase-9-documentation--governance)                                       | ✅ Completed | Docusaurus, CONTRIBUTING, versioning                  |
 | 10    | [Dockerization &amp; Deployment](#phase-10-dockerization--deployment)                                      | ✅ Completed | Dockerfile, multi-stage builds, Compose               |
-| 11    | [Publish &amp; Launch](#phase-11-publish--launch)                                                          | 🔜 Next      | v0.1.0 release via semantic-release                   |
+| 11    | [Publish &amp; Launch](#phase-11-publish--launch)                                                          | ✅ Completed | v0.1.0 release via semantic-release                   |
 | 12    | [AI-Powered Prompt Generator (Internal)](#phase-12-ai-powered-prompt-generator-internal)                   | ✅ Completed | Strategist + commit assistant + logging               |
-| 13    | [Multi-Embedding Strategy &amp; Registry](#phase-13-multi-embedding-strategy--registry)                    | ⏳ Planned   | Routing by language/domain with fallback models       |
+| 13    | [Multi-Embedding Strategy &amp; Registry](#phase-13-multi-embedding-strategy--registry)                    | 🔜 Next      | Routing by language/domain with fallback models       |
 | 14    | [Pipeline Graph Visualizer &amp; DSL Preview](#phase-14-pipeline-graph-visualizer--dsl-preview)            | ⏳ Planned   | `rag-cli visualize` for graphing pipeline structure |
 | 15    | [Benchmark Harness for RAG Pipelines](#phase-15-benchmark-harness-for-rag-pipelines)                       | ⏳ Planned   | CLI tool to benchmark latency, precision, recall      |
 | 16    | [Retrieval Scoring &amp; Confidence Modeling](#phase-16-retrieval-scoring--confidence-modeling)            | ⏳ Planned   | Top-K scoring, margin confidence, reranking           |
@@ -162,9 +162,14 @@ This document tracks the progress of each roadmap phase against implementation, 
 
 ### Phase 11: Publish & Launch
 
-- [ ] Prepare release/v0.1.0
-- [ ] Enable `semantic-release`
-- [ ] Publish to NPM + GitHub release
+- Configured `.releaserc.json` with full plugin stack: changelog, npm, GitHub, git
+- Created `.github/workflows/release.yml` to trigger on `main` and `release/*`
+- Added support for custom tokens `SYNAPSESTACK_GITHUB_TOKEN`, `SYNAPSESTACK_NPM_TOKEN`
+- Enabled `--dry-run` for safe test releases on `release/*` branches
+- All semantic-release plugins load and respond to commit history
+- Dry-run on `phase/11-publish-launch` confirmed publish readiness
+- Phase 11 confirmed release pipeline readiness without error
+- Prepared tagging plan for `v1.0.0` via `main` push
 
 ### Phase 12: AI-Powered Prompt Generator (Internal)
 
