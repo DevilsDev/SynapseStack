@@ -1,5 +1,25 @@
 # Changelog
 
+## [v1.0.0] - Phase 11: Publish & Launch
+
+### Added
+- Semantic-release configured via `.releaserc.json`
+- `release.yml` GitHub Action triggers on `main` and `release/*`
+- Supports dry-run preview before full release
+- Custom token support for multi-project secrets:
+  - `SYNAPSESTACK_GITHUB_TOKEN`
+  - `SYNAPSESTACK_NPM_TOKEN`
+- Full plugin stack enabled:
+  - `commit-analyzer`
+  - `release-notes-generator`
+  - `changelog`, `npm`, `github`, `git`
+
+### Validated
+- CLI release workflow tested via `--dry-run`
+- Phase tagged and prepared with `v1.0.0`
+- Confirmed GitHub release + changelog automation path
+
+---
 
 ## [v0.5.0-pre] - Phase 10: Dockerization & Metrics Deployment
 
