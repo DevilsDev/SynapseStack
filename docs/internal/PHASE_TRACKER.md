@@ -25,9 +25,9 @@ This document tracks the progress of each roadmap phase against implementation, 
 | 10    | [Dockerization &amp; Deployment](#phase-10-dockerization--deployment)                                      | ✅ Completed | Dockerfile, multi-stage builds, Compose               |
 | 11    | [Publish &amp; Launch](#phase-11-publish--launch)                                                          | ✅ Completed | v0.1.0 release via semantic-release                   |
 | 12    | [AI-Powered Prompt Generator (Internal)](#phase-12-ai-powered-prompt-generator-internal)                   | ✅ Completed | Strategist + commit assistant + logging               |
-| 13    | [Multi-Embedding Strategy &amp; Registry](#phase-13-multi-embedding-strategy--registry)                    | 🔜 Next      | Routing by language/domain with fallback models       |
-| 14    | [Pipeline Graph Visualizer &amp; DSL Preview](#phase-14-pipeline-graph-visualizer--dsl-preview)            | ⏳ Planned   | `rag-cli visualize` for graphing pipeline structure |
-| 15    | [Benchmark Harness for RAG Pipelines](#phase-15-benchmark-harness-for-rag-pipelines)                       | ⏳ Planned   | CLI tool to benchmark latency, precision, recall      |
+| 13    | [Multi-Embedding Strategy &amp; Registry](#phase-13-multi-embedding-strategy--registry)                    | ✅ Completed | Routing by language/domain with fallback models       |
+| 14    | [Pipeline Graph Visualizer &amp; DSL Preview](#phase-14-pipeline-graph-visualizer--dsl-preview)            | ✅ Completed | `rag-cli visualize` for graphing pipeline structure |
+| 15    | [Benchmark Harness for RAG Pipelines](#phase-15-benchmark-harness-for-rag-pipelines)                       | 🔜 Next      | CLI tool to benchmark latency, precision, recall      |
 | 16    | [Retrieval Scoring &amp; Confidence Modeling](#phase-16-retrieval-scoring--confidence-modeling)            | ⏳ Planned   | Top-K scoring, margin confidence, reranking           |
 | 17    | [Explainability &amp; Audit Trail](#phase-17-explainability--audit-trail)                                  | ⏳ Planned   | Rank trace, grounding logs, user-facing transparency  |
 | 18    | [Moonshot: Feedback Loop + Privacy Vectorization](#phase-18-moonshot-feedback-loop--privacy-vectorization) | ⏳ Planned   | PII-safe vectors, thumbs-up reranker, API-ready RAG   |
@@ -180,15 +180,18 @@ This document tracks the progress of each roadmap phase against implementation, 
 
 ### Phase 13: Multi-Embedding Strategy & Registry
 
-- [ ] Support multiple embedding providers with weighted configuration
-- [ ] Route embedding selection by document domain, language, or purpose
-- [ ] Enable fallback provider mechanism in case of failure or quality mismatch
+- Created `EmbeddingRegistry.ts` to manage multiple embedding providers
+- Created `EmbeddingStrategy.ts` for routing by language/domain
+- Integrated registry + fallback into `createRagPipeline()`
+- Supports dynamic routing to providers with failover logic
 
 ### Phase 14: Pipeline Graph Visualizer & DSL Preview
 
-- [ ] Scaffold `rag-cli visualize` command
-- [ ] Render YAML/JSON pipeline into Mermaid or Graphviz syntax
-- [ ] Generate preview as SVG/HTML for doc output or inspection
+- Created `renderPipelineGraph.ts` to convert config to Mermaid syntax
+- Extended CLI `visualize` command with `--output` support
+- Supported Mermaid `.md` file export and direct STDOUT
+- Integrated SVG export using `@mermaid-js/mermaid-cli`
+- CLI now outputs `.svg` previews for documentation or inspection
 
 ### Phase 15: Benchmark Harness for RAG Pipelines
 

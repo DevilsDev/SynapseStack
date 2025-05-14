@@ -1,5 +1,24 @@
 # Changelog
 
+## [v1.1.0-pre] - Phase 13 & Phase 14
+
+### Phase 14: Pipeline Graph Visualizer & DSL Preview
+
+- Created `renderPipelineGraph.ts` to convert pipeline.yaml → Mermaid syntax
+- CLI `visualize` command extended:
+  - `--output mygraph.md` → Mermaid code block
+  - `--output mygraph.svg` → rendered SVG via `@mermaid-js/mermaid-cli`
+- CLI graph rendering now works for both stdout and file export
+- Visual pipeline structure now supports documentation-ready embedding
+
+### Phase 13: Multi-Embedding Strategy & Registry
+
+- Added `EmbeddingRegistry.ts` to register and route embedding providers
+- Introduced `EmbeddingStrategy.ts` for selection by `language`, `domain`
+- Patched `createRagPipeline()` to support registry or static embedder fallback
+- Enabled dynamic provider selection and failover logic
+
+
 ## [Unreleased] - Patch on develop
 
 ### Fixed
