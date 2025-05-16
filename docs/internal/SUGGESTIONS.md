@@ -249,3 +249,24 @@ Roadmap
 
 **Classified As:** test
 **Phase Suggested:** Phase : 7 - Observability & Performance
+
+## Suggestion — 2025-05-16T06:30:51.071Z
+
+**Commit Summary:**
+
+Suggested Commit Message:
+
+chore(ai): add BenchmarkRunner and update related documentation
+
+This commit includes the addition of a new BenchmarkRunner in the src/benchmarks directory. It also includes updates to the prompts.yaml, results-old.csv, and results.csv files in the benchmarks directory. The documentation has been updated to reflect these changes, including a new adr on the benchmark harness and updates to the PHASE_TRACKER.md. Minor changes were also made to the rag-cli.ts file. A CHANGELOG.md file has also been added.
+
+**Suggested Next Task:**
+
+Suggested Next Task: 
+Now that the BenchmarkRunner has been added and the related documentation updated, the next logical step would be to implement tests for the BenchmarkRunner to ensure its functionality and performance. 
+
+Roadmap
+
+**Classified As:** test
+**Phase Suggested:** Phase : 
+7 - Observability & Performance
