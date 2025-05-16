@@ -1,5 +1,22 @@
 # Changelog
 
+## [v1.1.7-pre] - Phase 17 & 18: Audit Logging, Feedback Loop, Privacy
+
+
+### Phase 18: Feedback Loop + Privacy Prep
+
+- Added `FeedbackTracker.ts` to log user thumbs up/down
+- CLI `--feedback up|down` logs signal to `feedback.csv`
+- Added `--sanitize` placeholder flag for future vector privacy filtering
+- Hooks support future reranking and privacy modules
+
+### Phase 17: Explainability & Audit Trail
+
+- Added `AuditLogger.ts` to trace prompt→context→output paths
+- CLI `--audit` flag writes JSON logs with retrieved doc confidence
+- Audit files stored in `audit/audit-log-*.json`
+
+
 ## [v1.1.6-pre] - Phase 16: Retrieval Scoring & Confidence Modeling
 
 ### Added

@@ -1,6 +1,6 @@
 id,text,latency_ms,tokens,timestamp
-p1,"What is SynapseStack and how does it help with RAG?",0,79,2025-05-16T10:22:30.674Z
-p2,"Explain the purpose of EmbeddingRegistry in a multi-LLM pipeline.",0,79,2025-05-16T10:22:30.674Z
-p3,"Describe how to visualize a pipeline configuration in CLI.",0,79,2025-05-16T10:22:30.674Z
-p4,"What is the role of Prometheus in SynapseStack observability?",0,79,2025-05-16T10:22:30.675Z
-p5,"How does semantic-release ensure consistency in release workflows?",0,79,2025-05-16T10:22:30.675Z
+p1,"What is SynapseStack and how does it help with RAG?",1,79,2025-05-16T21:03:31.723Z
+p2,"Explain the purpose of EmbeddingRegistry in a multi-LLM pipeline.",0,79,2025-05-16T21:03:31.724Z
+p3,"Describe how to visualize a pipeline configuration in CLI.",1,79,2025-05-16T21:03:31.725Z
+p4,"What is the role of Prometheus in SynapseStack observability?",0,79,2025-05-16T21:03:31.725Z
+p5,"How does semantic-release ensure consistency in release workflows?",0,79,2025-05-16T21:03:31.725Z
