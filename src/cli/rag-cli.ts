@@ -25,14 +25,16 @@ program.name('rag-cli').description('SynapseStack CLI for managing RAG pipelines
 const DEFAULT_CONFIG_PATH = 'pipeline.yaml';
 
 program
-  .command('benchmark')
+   .command('benchmark')
   .description('Benchmark a pipeline using structured prompts')
-  .option('-s, --suite <file>', 'Prompt suite file (YAML or JSON)', 'benchmarks/prompts.yaml')
-  .option('-o, --output <file>', 'Results output file (CSV or JSON)', 'benchmarks/results.csv')
-  .option('-m, --mode <mode>', 'Execution mode: generate or stream', 'generate')
-  .option('-b, --baseline <file>', 'Previous results file for comparison')
-  .option('--scoring <strategy>', 'Scoring strategy: hybrid, cosine, margin', 'hybrid')
-  .option('--rerank', 'Enable reranking by confidence', false)
+  .option('-s, --suite <file>', 'Path to prompt suite YAML/JSON', 'benchmarks/prompts.yaml')
+  .option('-o, --output <file>', 'Output file for results (CSV or JSON)', 'benchmarks/results.csv')
+  .option('-b, --baseline <file>', 'Optional previous snapshot to compare against')
+  .option('--scoring <strategy>', 'Scoring strategy: margin | cosine | hybrid', 'hybrid')
+  .option('--rerank', 'Enable reranking via confidence scores')
+  .option('--audit', 'Enable audit logging to audit/ folder')
+  .option('--feedback <signal>', 'Log feedback signal: up or down')
+  .option('--sanitize', 'Enable PII vector sanitizer (stubbed)')
   .action(async (options) => {
     const promptsPath = path.resolve(options.suite);
     const outputPath = path.resolve(options.output);
