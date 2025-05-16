@@ -1,6 +1,14 @@
 - id: p1
-  text: What is SynapseStack?
+  text: What is SynapseStack and how does it help with RAG?
+
 - id: p2
-  text: How does context-augmented generation work?
+  text: Explain the purpose of EmbeddingRegistry in a multi-LLM pipeline.
+
 - id: p3
-  text: Explain the purpose of vector store adapters.
+  text: Describe how to visualize a pipeline configuration in CLI.
+
+- id: p4
+  text: What is the role of Prometheus in SynapseStack observability?
+
+- id: p5
+  text: How does semantic-release ensure consistency in release workflows?

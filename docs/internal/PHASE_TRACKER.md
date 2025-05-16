@@ -195,9 +195,19 @@ This document tracks the progress of each roadmap phase against implementation, 
 
 ### Phase 15: Benchmark Harness for RAG Pipelines
 
-- [ ] Create CLI tool for benchmarking pipeline latency and token usage
-- [ ] Define structured prompt suites and evaluation sets
-- [ ] Track performance metrics in snapshot JSON or CSV
+-  Created `BenchmarkRunner.ts` to load prompts and execute pipeline runs
+-  CLI command `rag-cli benchmark` supports:
+  - `--suite` for structured YAML or JSON prompt files
+  - `--output` to save results in CSV or JSON format
+  - `--mode` to toggle execution type (future: generate vs stream)
+  - `--baseline` to compare against previous benchmark run
+-  Metrics recorded: latency (ms), token count, timestamp
+-  CSV + JSON snapshot formats implemented
+-  CLI emits per-prompt delta analysis for regression tracking
+-  Warnings logged if `--baseline` file is missing
+-  Prepared for integration with visual viewer (`BenchmarkViewer.tsx`)
+
+
 
 ### Phase 16: Retrieval Scoring & Confidence Modeling
 

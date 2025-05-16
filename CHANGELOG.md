@@ -1,5 +1,21 @@
 # Changelog
 
+## [v1.1.5-pre] - Phase 15: Benchmark Harness
+
+### Added
+- Created `BenchmarkRunner.ts` to run prompt suites and record performance
+- CLI: `rag-cli benchmark` supports:
+  - `--suite <file>` for YAML/JSON input
+  - `--output <file>` to save CSV/JSON results
+  - `--baseline <file>` to compare against previous runs
+- Metrics tracked:
+  - `latency_ms`
+  - `tokens`
+  - `timestamp`
+- CSV + JSON snapshot support
+- Delta comparison output to console
+- Safe handling of missing baseline file
+
 ## [v1.1.0-pre] - Phase 13 & Phase 14
 
 ### Phase 14: Pipeline Graph Visualizer & DSL Preview
