@@ -270,3 +270,28 @@ Roadmap
 **Classified As:** test
 **Phase Suggested:** Phase : 
 7 - Observability & Performance
+
+## Suggestion — 2025-05-16T10:57:19.695Z
+
+**Commit Summary:**
+
+Suggested Commit Message:
+
+chore(ai): Improve confidence calculation and update related documentation
+
+This commit includes major improvements to the confidence calculation strategy in the scoring engine. It also updates the related documentation and benchmarks. The changes are as follows:
+
+- Added a new confidence strategy and updated the ADR document.
+- Updated the phase tracker documentation.
+- Created a new test script for the confidence pipeline.
+- Refactored and optimized the CLI and the pipeline creation process.
+- Added new methods in the ConfidenceCalculator and ScoreStrategy classes.
+
+**Suggested Next Task:**
+
+Next Development Task: Implementing unit tests for the new confidence strategy and methods in the ConfidenceCalculator and ScoreStrategy classes.
+
+Roadmap
+
+**Classified As:** test
+**Phase Suggested:** Phase : 7 - Observability & Performance

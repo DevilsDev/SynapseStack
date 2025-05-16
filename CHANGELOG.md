@@ -1,5 +1,17 @@
 # Changelog
 
+## [v1.1.6-pre] - Phase 16: Retrieval Scoring & Confidence Modeling
+
+### Added
+- `ScoreStrategy.ts` with margin, cosine, and hybrid scoring models
+- `ConfidenceCalculator.ts` to normalize and rerank document scores
+- Patched `createRagPipeline()` to inject scoring strategy and surface confidence
+- CLI: `rag-cli benchmark` now supports:
+  - `--scoring=hybrid|margin|cosine`
+  - `--rerank` toggle for scoring activation
+- Confidence values appear in document context shown to LLM
+- CLI reranking tested with `test-confidence-pipeline.ts`
+
 ## [v1.1.5-pre] - Phase 15: Benchmark Harness
 
 ### Added

@@ -1,7 +1,7 @@
 /**
  * File: src/engines/createRagPipeline.ts
- * Description: Orchestration function for modular RAG pipelines.
- * Version: 0.3.0
+ * Description: Orchestration function for modular RAG pipelines with confidence scoring.
+ * Version: 0.4.0
  * Author: Ali Kahwaji
  */
 
@@ -11,6 +11,8 @@ import { ILLMClient } from '../core/ILLMClient';
 import { ContextManager } from './ContextManager';
 import { latencyHistogram, tokenCounter } from '../utils/telemetry';
 import { EmbeddingRegistry } from '../registry/EmbeddingRegistry';
+import { ConfidenceCalculator } from '../scoring/ConfidenceCalculator';
+import { ScoreStrategy, hybridScoring } from '../scoring/ScoreStrategy';
 
 export type RagPipelineConfig = {
   embedder?: IEmbeddingProvider;
@@ -19,10 +21,21 @@ export type RagPipelineConfig = {
   vectorStore: IVectorStore;
   llm: ILLMClient;
   contextManager?: ContextManager;
+  scoringStrategy?: ScoreStrategy;
 };
 
 export function createRagPipeline(config: RagPipelineConfig) {
-  const { embedder, embeddingRegistry, embeddingMeta, vectorStore, llm, contextManager } = config;
+  const {
+    embedder,
+    embeddingRegistry,
+    embeddingMeta,
+    vectorStore,
+    llm,
+    contextManager,
+    scoringStrategy = hybridScoring
+  } = config;
+
+  const scorer = new ConfidenceCalculator(scoringStrategy);
 
   return {
     async query(input: string): Promise<string> {
@@ -33,8 +46,13 @@ export function createRagPipeline(config: RagPipelineConfig) {
       if (!activeEmbedder) throw new Error('No valid embedding provider found');
 
       const embeddings = await activeEmbedder.embed([input]);
-      const results = await vectorStore.similaritySearch(embeddings[0], 5);
-      const retrievedDocs = results.map((r) => `Doc: ${r.id} [score: ${r.score}]`);
+      const rawResults = await vectorStore.similaritySearch(embeddings[0], 5);
+
+      const ranked = scorer.rank(
+        rawResults.map(r => ({ id: r.id, score: r.score, metadata: r }))
+      );
+
+      const retrievedDocs = ranked.map((r) => `Doc: ${r.id} [conf: ${r.confidence.toFixed(2)}]`);
       const promptContext = [...context, ...retrievedDocs];
       const output = await llm.generate(input, promptContext);
 
