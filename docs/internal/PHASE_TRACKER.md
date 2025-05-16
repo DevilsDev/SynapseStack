@@ -27,8 +27,8 @@ This document tracks the progress of each roadmap phase against implementation, 
 | 12    | [AI-Powered Prompt Generator (Internal)](#phase-12-ai-powered-prompt-generator-internal)                   | ✅ Completed | Strategist + commit assistant + logging               |
 | 13    | [Multi-Embedding Strategy &amp; Registry](#phase-13-multi-embedding-strategy--registry)                    | ✅ Completed | Routing by language/domain with fallback models       |
 | 14    | [Pipeline Graph Visualizer &amp; DSL Preview](#phase-14-pipeline-graph-visualizer--dsl-preview)            | ✅ Completed | `rag-cli visualize` for graphing pipeline structure |
-| 15    | [Benchmark Harness for RAG Pipelines](#phase-15-benchmark-harness-for-rag-pipelines)                       | 🔜 Next      | CLI tool to benchmark latency, precision, recall      |
-| 16    | [Retrieval Scoring &amp; Confidence Modeling](#phase-16-retrieval-scoring--confidence-modeling)            | ⏳ Planned   | Top-K scoring, margin confidence, reranking           |
+| 15    | [Benchmark Harness for RAG Pipelines](#phase-15-benchmark-harness-for-rag-pipelines)                       | ✅ Completed | CLI tool to benchmark latency, precision, recall      |
+| 16    | [Retrieval Scoring &amp; Confidence Modeling](#phase-16-retrieval-scoring--confidence-modeling)            | 🔜 Next      | Top-K scoring, margin confidence, reranking           |
 | 17    | [Explainability &amp; Audit Trail](#phase-17-explainability--audit-trail)                                  | ⏳ Planned   | Rank trace, grounding logs, user-facing transparency  |
 | 18    | [Moonshot: Feedback Loop + Privacy Vectorization](#phase-18-moonshot-feedback-loop--privacy-vectorization) | ⏳ Planned   | PII-safe vectors, thumbs-up reranker, API-ready RAG   |
 
@@ -195,25 +195,32 @@ This document tracks the progress of each roadmap phase against implementation, 
 
 ### Phase 15: Benchmark Harness for RAG Pipelines
 
--  Created `BenchmarkRunner.ts` to load prompts and execute pipeline runs
--  CLI command `rag-cli benchmark` supports:
-  - `--suite` for structured YAML or JSON prompt files
-  - `--output` to save results in CSV or JSON format
-  - `--mode` to toggle execution type (future: generate vs stream)
-  - `--baseline` to compare against previous benchmark run
--  Metrics recorded: latency (ms), token count, timestamp
--  CSV + JSON snapshot formats implemented
--  CLI emits per-prompt delta analysis for regression tracking
--  Warnings logged if `--baseline` file is missing
--  Prepared for integration with visual viewer (`BenchmarkViewer.tsx`)
-
-
+- Created `BenchmarkRunner.ts` to load prompts and execute pipeline runs
+- CLI command `rag-cli benchmark` supports:
+- `--suite` for structured YAML or JSON prompt files
+- `--output` to save results in CSV or JSON format
+- `--mode` to toggle execution type (future: generate vs stream)
+- `--baseline` to compare against previous benchmark run
+- Metrics recorded: latency (ms), token count, timestamp
+- CSV + JSON snapshot formats implemented
+- CLI emits per-prompt delta analysis for regression tracking
+- Warnings logged if `--baseline` file is missing
+- Prepared for integration with visual viewer (`BenchmarkViewer.tsx`)
 
 ### Phase 16: Retrieval Scoring & Confidence Modeling
 
-- [ ] Add configurable scoring mechanism (margin, hybrid, vector+BM25)
-- [ ] Surface confidence scores with each retrieved document
-- [ ] Add reranking hook to improve factual reliability
+-  Created `ScoreStrategy.ts` with `margin`, `cosine`, `hybrid` confidence scorers
+-  Implemented `ConfidenceCalculator.ts` to normalize and rerank by confidence
+-  Patched `createRagPipeline()` to:
+  - Accept `scoringStrategy`
+  - Rerank vector results with `confidence`
+-  CLI `rag-cli benchmark` now supports:
+  - `--scoring=hybrid|cosine|margin`
+  - `--rerank` to toggle confidence scoring mode
+-  Added test pipeline (`test-confidence-pipeline.ts`) to verify ranking
+-  All confidence values surfaced in output and CLI context
+-  Lays foundation for Phase 17 model feedback & audit trails
+
 
 ### Phase 17: Explainability & Audit Trail
 
