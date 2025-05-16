@@ -224,16 +224,17 @@ This document tracks the progress of each roadmap phase against implementation, 
 
 ### Phase 17: Explainability & Audit Trail
 
-- [ ] Trace input-output path for each pipeline request
-- [ ] Log token alignment and source doc attribution
-- [ ] Provide opt-in audit mode for all queries
+-  Added AuditLogger.ts for structured pipeline logs (prompt → retrieved → output)
+-  CLI --audit flag logs each query to audit/audit-log-<timestamp>.json
+-  Pipeline tokens + confidence included in each log entry
+-  Audit integrated in createRagPipeline() with toggleable config
 
 ### Phase 18: Moonshot: Feedback Loop + Privacy Vectorization
 
-- [ ] Log user feedback signals (e.g. thumbs up/down)
-- [ ] Integrate feedback-driven reranker learning path
-- [ ] Add vector sanitizer for PII-sensitive embeddings
-- [ ] Enable export as serverless pipeline or CLI task
+- Added FeedbackTracker.ts to capture thumbs up/down per prompt
+- CLI --feedback up|down logs to feedback.csv
+- CLI --sanitize flag introduced (stubbed for future PII filtering)
+- Hooks added to support future privacy filtering and retraining loops
 
 ---
 
